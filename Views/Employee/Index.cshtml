@@ -5,37 +5,40 @@
     int sequence = 1;
 }
 
+<div id="place-holder-modal"></div>
+
 <div class="col-12">
     <div class="card m-3">
         <div class="card-header">
             <h3 class="card-title">Personel Listesi</h3>
 
             <div class="card-tools">
-
-                <a class="btn btn-success" asp-action="Create">Create New</a>
+                <button type="button" class="btn btn-success" data-toggle="ajax-modal" data-target="#addEmployee" data-url="@Url.Action("Create")">
+                    <i class="bi bi-plus-circle"></i> Personel Ekle
+                </button>
             </div>
         </div>
         <!-- /.card-header -->
-        <div class="card-body table-responsive p-0" style="height: 300px;">
+        <div class="card-body table-responsive p-0" style="height: 70vh">
             <table class="table table-head-fixed text-nowrap">
                 <thead>
                     <tr>
-                        <th>
+                        <th class="text-center">
                             Sıra
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.FullName)
                         </th>
-                        <th>
+                        <th class="text-center">
                             @Html.DisplayNameFor(model => model.Age)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.Department)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.HireDate))
+                            @Html.DisplayNameFor(model => model.HireDate)
                         </th>
-                        <th>
+                        <th class="text-center">
                             @Html.DisplayNameFor(model => model.AnnualPermitCount)
                         </th>
                         <th></th>
@@ -45,14 +48,14 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>
+                            <td  class="text-center">
                                 @sequence
 
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.FullName)
                             </td>
-                            <td>
+                            <td  class="text-center">
                                 @Html.DisplayFor(modelItem => item.Age)
                             </td>
                             <td>
@@ -61,13 +64,19 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.HireDate)
                             </td>
-                            <td>
+                            <td  class="text-center">
                                 @Html.DisplayFor(modelItem => item.AnnualPermitCount)
                             </td>
-                            <td>
-                                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <td  class="text-right">
+                                <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#editEmployee"
+                                    data-url="@Url.Action($"Edit/{item.Id}")">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button> |
                                 @*<a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a> |*@
-                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                <button type="button" class="btn btn-danger" data-toggle="ajax-modal" data-target="#deleteEmployee"
+                                    data-url="@Url.Action($"Delete/{item.Id}")">
+                                    <i class="bi bi-trash3"></i>
+                                </button>
                             </td>
                         </tr>
 
@@ -79,5 +88,4 @@
         <!-- /.card-body -->
     </div>
     <!-- /.card -->
-</div>
 </div>
