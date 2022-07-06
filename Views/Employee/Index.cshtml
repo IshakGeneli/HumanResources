@@ -20,70 +20,79 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body table-responsive p-0" style="height: 70vh">
-            <table class="table table-head-fixed text-nowrap">
-                <thead>
-                    <tr>
-                        <th class="text-center">
-                            Sıra
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.FullName)
-                        </th>
-                        <th class="text-center">
-                            @Html.DisplayNameFor(model => model.Age)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Department)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.HireDate)
-                        </th>
-                        <th class="text-center">
-                            @Html.DisplayNameFor(model => model.AnnualPermitCount)
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
+            @if (!Model.Any())
+            {
+                <span class="text-danger">Veri Yok</span>
+            }
+            else
+            {
+                <table class="table table-head-fixed text-nowrap">
+                    <thead>
                         <tr>
-                            <td  class="text-center">
-                                @sequence
-
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.FullName)
-                            </td>
-                            <td  class="text-center">
-                                @Html.DisplayFor(modelItem => item.Age)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Department)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.HireDate)
-                            </td>
-                            <td  class="text-center">
-                                @Html.DisplayFor(modelItem => item.AnnualPermitCount)
-                            </td>
-                            <td  class="text-right">
-                                <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#editEmployee"
-                                    data-url="@Url.Action($"Edit/{item.Id}")">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button> |
-                                @*<a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a> |*@
-                                <button type="button" class="btn btn-danger" data-toggle="ajax-modal" data-target="#deleteEmployee"
-                                    data-url="@Url.Action($"Delete/{item.Id}")">
-                                    <i class="bi bi-trash3"></i>
-                                </button>
-                            </td>
+                            <th class="text-center">
+                                Sıra
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FullName)
+                            </th>
+                            <th class="text-center">
+                                @Html.DisplayNameFor(model => model.Age)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Department)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.HireDate)
+                            </th>
+                            <th class="text-center">
+                                @Html.DisplayNameFor(model => model.AnnualPermitCount)
+                            </th>
+                            <th></th>
                         </tr>
+                    </thead>
+                    <tbody>
 
-                        sequence++;
-                    }
-                </tbody>
-            </table>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-center">
+                                    @sequence
+
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FullName)
+                                </td>
+                                <td class="text-center">
+                                    @Html.DisplayFor(modelItem => item.Age)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Department)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.HireDate)
+                                </td>
+                                <td class="text-center">
+                                    @Html.DisplayFor(modelItem => item.AnnualPermitCount)
+                                </td>
+                                <td class="text-right">
+                                    <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#editEmployee"
+                                    data-url="@Url.Action($"Edit/{item.Id}")">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button> |
+                                    @*<a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a> |*@
+                                    <button type="button" class="btn btn-danger" data-toggle="ajax-modal" data-target="#deleteEmployee"
+                                    data-url="@Url.Action($"Delete/{item.Id}")">
+                                        <i class="bi bi-trash3"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+                            sequence++;
+                        }
+                    </tbody>
+                </table>
+            }
+
         </div>
         <!-- /.card-body -->
     </div>

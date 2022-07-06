@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace HumanResources.Models
 {
@@ -20,10 +19,12 @@ namespace HumanResources.Models
 
         [Display(Name = "İşe Başlama Tarihi")]
         [DataType(DataType.Date)]
-        [BindNever]
         public DateTime HireDate { get; set; }
 
         [Display(Name = "Yıllık İzin Adedi")]
         public int AnnualPermitCount { get; set; }
+
+        public List<Permit>? Permits { get; set; }
+
     }
 }

@@ -26,6 +26,10 @@
     <link rel="stylesheet" href="~/lib/AdminLTE-3.2.0/plugins/daterangepicker/daterangepicker.css">
 
     <link rel="stylesheet" href="~/lib/AdminLTE-3.2.0/plugins/summernote/summernote-bs4.min.css">
+    
+    <!-- Zabuto Calendar -->
+    @*<link rel="stylesheet" href="~/css/zabuto_calendar.min.css">*@
+    @RenderSectionAsync("Styles", required:false)
 </head>
 <body class="hold-transition sidebar-mini layout-fixed dark-mode">
     <div class="wrapper">
@@ -120,7 +124,7 @@
                                         <p>Personel Listesi</p>
                                     </a>
                                 </li><li class="nav-item">
-                                    <a href="#" class="nav-link active">
+                                    <a asp-action="Index" asp-controller="Permit" class="nav-link active">
                                         <i class="bi bi-calendar-week"></i>
                                         <p>İzin Listesi</p>
                                     </a>
@@ -137,23 +141,7 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            @*<div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0">Dashboard</h1>
-                        </div><!-- /.col -->
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Dashboard v1</li>
-                            </ol>
-                        </div><!-- /.col -->
-                    </div><!-- /.row -->
-                </div><!-- /.container-fluid -->
-            </div>*@
-            <!-- /.content-header -->
+            
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
@@ -188,33 +176,27 @@
     </script>
     <!-- Bootstrap 4 -->
     <script src="~/lib/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-
     <script src="~/lib/AdminLTE-3.2.0/plugins/chart.js/Chart.min.js"></script>
-
     <script src="~/lib/AdminLTE-3.2.0/plugins/sparklines/sparkline.js"></script>
-
     <script src="~/lib/AdminLTE-3.2.0/plugins/jqvmap/jquery.vmap.min.js"></script>
-
     <script src="~/lib/AdminLTE-3.2.0/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-
     <script src="~/lib/AdminLTE-3.2.0/plugins/jquery-knob/jquery.knob.min.js"></script>
-
     <script src="~/lib/AdminLTE-3.2.0/plugins/moment/moment.min.js"></script>
-
     <script src="~/lib/AdminLTE-3.2.0/plugins/daterangepicker/daterangepicker.js"></script>
-
     <script src="~/lib/AdminLTE-3.2.0/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-
     <script src="~/lib/AdminLTE-3.2.0/plugins/summernote/summernote-bs4.min.js"></script>
-
     <script src="~/lib/AdminLTE-3.2.0/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-
     <script src="~/lib/AdminLTE-3.2.0/dist/js/adminlte.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="~/lib/AdminLTE-3.2.0/dist/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="~/lib/AdminLTE-3.2.0/dist/js/pages/dashboard.js"></script>
-    
+    <script src="~/lib/AdminLTE-3.2.0/plugins/fullcalendar/main.js"></script>
+
     <script src="~/js/site.js"></script>
+    <script src="~/js/zabuto_calendar.min.js"></script>
+<script type="application/javascript" src="~/js/calender_init.js"></script>
+
+    @RenderSectionAsync("Scripts", required:false)
 </body>
 </html>

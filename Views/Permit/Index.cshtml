@@ -1,0 +1,129 @@
+﻿@model IEnumerable<HumanResources.Models.PermitViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    int sequence = 1;
+}
+
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/zabuto_calendar.min.css">
+}
+
+<div id="place-holder-modal"></div>
+
+<div class="col-12">
+    <div class="card m-3">
+        <div class="card-header">
+            <h3 class="card-title">İzin Listesi</h3>
+
+            <div  class="card-tools">
+                <button type="button" class="btn btn-success" data-toggle="ajax-modal" data-target="#addEmployee" data-url="@Url.Action("Create")">
+                    <i class="bi bi-plus-circle"></i> İzin Ekle
+                </button>
+            </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body table-responsive p-0" style="height: 70vh">
+            @if (!Model.Any())
+            {
+                <span class="text-danger">Veri Yok</span>
+            }
+            else
+            {
+                <table class="table table-head-fixed text-nowrap">
+                    <thead>
+                        <tr>
+                            <th class="text-center">
+                                Sıra
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EmployeeFullName)
+                            </th>
+                            <th>
+                                Gün Çizelgesi
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-center">
+                                    @sequence
+
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EmployeeFullName)
+                                </td>
+                                <td>
+                                    <div id="my-calendar-@item.Id" style="color: black"></div>
+
+                                </td>
+                                <td class="text-right">
+                                    <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#editEmployee"
+                                    data-url="@Url.Action($"Edit/")">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button> |
+                                    @*<a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a> |*@
+                                    @*<button type="button" class="btn btn-danger" data-toggle="ajax-modal" data-target="#deleteEmployee"
+                                    data-url="@Url.Action($"Delete/")">
+                                        <i class="bi bi-trash3"></i>
+                                    </button>*@
+                                </td>
+                            </tr>
+
+                            sequence++;
+                           
+                        }
+                    </tbody>
+                </table>
+            }
+
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</div>
+
+@section Scripts
+{
+    <script>
+        $(function() {
+            $.ajax({
+                url: 'Permit/GetPermits',
+                type: 'Get',
+                success: function(permits) {
+                    console.log(permits);
+
+                    var jsonPermits = jQuery.parseJSON(permits);
+
+                    $.each(jsonPermits, (index, value) => {
+                            console.log(value.StartDate.slice(0, -9));
+                            
+                            // TODO: StartDate - EndDate arasindaki tum tarihleri getirecek method yazilacak.
+
+                            var permits = [
+                                { "date": value.StartDate.slice(0, -9), "badge": value.PermitType === "Mazeretli" ? true : false }, // datetime yerine sadece date getirip slice metodunu kaldir.
+                                { "date": "2022-07-07", "badge": true }
+                            ];
+
+                            $("#my-calendar-" + value.Id).zabuto_calendar({
+                                language: "tr",
+                                nav_icon: {
+                                    prev: '<i class="fa fa-chevron-circle-left"></i>',
+                                    next: '<i class="fa fa-chevron-circle-right"></i>'
+                                },
+                                data: permits
+                            });
+                            
+                    });
+                }
+            });
+        })
+    </script>
+}
+
+

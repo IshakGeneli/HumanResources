@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "v/h7r3REx1NkQj5S7led9eLFdloC89xqf7d92COMC6Q=",
+  "Hash": "vCW1QhwhZ1GD62KpqZZutdbuuf8s0zVZSv4QhA76r8c=",
   "Source": "HumanResources",
   "BasePath": "_content/HumanResources",
   "Mode": "Default",
@@ -68,6 +68,23 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
+      "Identity": "C:\\Users\\ASUS\\source\\repos\\HumanResources\\wwwroot\\css\\zabuto_calendar.min.css",
+      "SourceId": "HumanResources",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ASUS\\source\\repos\\HumanResources\\wwwroot\\",
+      "BasePath": "_content/HumanResources",
+      "RelativePath": "css/zabuto_calendar.min.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\zabuto_calendar.min.css"
+    },
+    {
       "Identity": "C:\\Users\\ASUS\\source\\repos\\HumanResources\\wwwroot\\favicon.ico",
       "SourceId": "HumanResources",
       "SourceType": "Discovered",
@@ -100,6 +117,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\site.js"
+    },
+    {
+      "Identity": "C:\\Users\\ASUS\\source\\repos\\HumanResources\\wwwroot\\js\\zabuto_calendar.min.js",
+      "SourceId": "HumanResources",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ASUS\\source\\repos\\HumanResources\\wwwroot\\",
+      "BasePath": "_content/HumanResources",
+      "RelativePath": "js/zabuto_calendar.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\zabuto_calendar.min.js"
     },
     {
       "Identity": "C:\\Users\\ASUS\\source\\repos\\HumanResources\\wwwroot\\lib\\AdminLTE-3.2.0\\dist\\css\\adminlte.css",

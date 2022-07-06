@@ -1,5 +1,7 @@
 ﻿
 $(function () {
+
+    //MODAL POPUP BEGIN
     var placeHolderModal = $("#place-holder-modal");
 
     $('button[data-toggle="ajax-modal"]').click(function (event) {
@@ -22,4 +24,6 @@ $(function () {
             location.reload(true);
         });
     });
-})
+    //MODAL POPUP END
+
+});

@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "ItMDa2t53PgegMjhZdgtH46DvYoossylPSbpPmGk9DLJ213IxfVEXiLksumqyDb4OyyWjRLRAcCq7kK1miI9+g==",
+  "dgSpecHash": "r89cy2wdiRd+bsx1oulxw9tJ2QH26n6qsWH1+UyE3fXnnXzBDBgs2K+MhSvV5V/Ytac8ccd6b6FbdUyCRoyhvA==",
   "success": true,
   "projectFilePath": "C:\\Users\\ASUS\\source\\repos\\HumanResources\\HumanResources.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ASUS\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\ASUS\\.nuget\\packages\\jquery\\2.0.0\\jquery.2.0.0.nupkg.sha512",
+    "C:\\Users\\ASUS\\.nuget\\packages\\jquery.ui.combined\\1.13.1\\jquery.ui.combined.1.13.1.nupkg.sha512",
     "C:\\Users\\ASUS\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\ASUS\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",
     "C:\\Users\\ASUS\\.nuget\\packages\\messagepackanalyzer\\2.1.152\\messagepackanalyzer.2.1.152.nupkg.sha512",
@@ -182,5 +184,16 @@
     "C:\\Users\\ASUS\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\ASUS\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1603",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "jQuery.UI.Combined 1.13.1 depends on jQuery (>= 1.13.1) but jQuery 1.13.1 was not found. An approximate best match of jQuery 2.0.0 was resolved.",
+      "libraryId": "jQuery",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }

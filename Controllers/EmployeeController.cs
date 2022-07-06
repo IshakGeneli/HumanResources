@@ -65,10 +65,10 @@ namespace HumanResources.Controllers
         [HttpPost]
         public IActionResult Delete(Employee employee)
         {
-            var deleteEmploye = _context.Employees.Find(employee.Id);
-            _context.Employees.Remove(deleteEmploye);
+            var deleteEmployee = _context.Employees.Find(employee.Id);
+            _context.Employees.Remove(deleteEmployee);
             _context.SaveChanges();
-            return PartialView("_DeleteEmployeeModelPartial", deleteEmploye);
+            return PartialView("_DeleteEmployeeModelPartial", deleteEmployee);
         }
     }
 }

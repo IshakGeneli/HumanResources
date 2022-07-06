@@ -51,6 +51,49 @@ namespace HumanResources.Migrations
 
                     b.ToTable("Employees");
                 });
+
+            modelBuilder.Entity("HumanResources.Models.Permit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("Permits");
+                });
+
+            modelBuilder.Entity("HumanResources.Models.Permit", b =>
+                {
+                    b.HasOne("HumanResources.Models.Employee", "Employee")
+                        .WithMany("Permits")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("HumanResources.Models.Employee", b =>
+                {
+                    b.Navigation("Permits");
+                });
 #pragma warning restore 612, 618
         }
     }

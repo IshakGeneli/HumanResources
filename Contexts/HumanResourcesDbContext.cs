@@ -11,5 +11,6 @@ namespace HumanResources.Contexts
         }
 
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Permit> Permits { get; set; }
     }
 }
