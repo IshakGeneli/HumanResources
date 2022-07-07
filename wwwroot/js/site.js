@@ -15,9 +15,7 @@ $(function () {
 
     placeHolderModal.on('click', '[data-save="modal"]', function (event){
         var form = $(this).parents('.modal').find('form');
-        console.log(form);
         var actionUrl = form.attr('action');
-        console.log(actionUrl);
         var sendData = form.serialize();
         $.post(actionUrl, sendData).done((data) => {
             placeHolderModal.find('.modal').modal('hide');

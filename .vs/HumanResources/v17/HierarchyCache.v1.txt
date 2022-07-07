@@ -3,9 +3,9 @@ i:{00000000-0000-0000-0000-000000000000}:HumanResources.sln
 ++HumanResources
 i:{00000000-0000-0000-0000-000000000000}:HumanResources
 ++Connected Services 
-i:{6f63e72d-8695-440d-b003-8d741b564b9d}:>11791
+i:{6f63e72d-8695-440d-b003-8d741b564b9d}:>11797
 ++Dependencies
-i:{6f63e72d-8695-440d-b003-8d741b564b9d}:>11790
+i:{6f63e72d-8695-440d-b003-8d741b564b9d}:>11796
 ++Properties
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\properties\
 ++wwwroot
@@ -39,6 +39,10 @@ i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresourc
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\wwwroot\lib\adminlte-3.2.0\plugins\select2\css\
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\wwwroot\lib\adminlte-3.2.0\plugins\tempusdominus-bootstrap-4\css\
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\wwwroot\lib\adminlte-3.2.0\plugins\codemirror\mode\css\
+++site.css
+i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\wwwroot\css\site.css
+++zabuto_calendar.min.css
+i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\wwwroot\css\zabuto_calendar.min.css
 ++js
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\wwwroot\js\
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\wwwroot\lib\adminlte-3.2.0\dist\js\
@@ -67,6 +71,8 @@ i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresourc
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\wwwroot\lib\adminlte-3.2.0\plugins\tempusdominus-bootstrap-4\js\
 ++site.js
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\wwwroot\js\site.js
+++zabuto_calendar.min.js
+i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\wwwroot\js\zabuto_calendar.min.js
 ++lib
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\wwwroot\lib\
 ++favicon.ico
@@ -83,8 +89,6 @@ i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresourc
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\controllers\permitcontroller.cs
 ++Enums
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\enums\
-++PermitType.cs
-i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\enums\permittype.cs
 ++Migrations
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\migrations\
 ++Models
@@ -117,16 +121,6 @@ i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresourc
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\views\permit\
 ++Shared
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\views\shared\
-++_Layout.cshtml
-i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\views\shared\_layout.cshtml
-++_Layout.cshtml.css
-i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\views\shared\_layout.cshtml.css
-++_LoginPartial.cshtml
-i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\views\shared\_loginpartial.cshtml
-++_ValidationScriptsPartial.cshtml
-i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\views\shared\_validationscriptspartial.cshtml
-++Error.cshtml
-i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\views\shared\error.cshtml
 ++_ViewImports.cshtml
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\views\_viewimports.cshtml
 ++_ViewStart.cshtml
@@ -137,12 +131,10 @@ i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresourc
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\.gitignore
 ++appsettings.json
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\appsettings.json
-++appsettings.Development.json
-i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\appsettings.development.json
 ++Program.cs
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\program.cs
 ++No service dependencies discovered
-i:{6f63e72d-8695-440d-b003-8d741b564b9d}:>11792
+i:{6f63e72d-8695-440d-b003-8d741b564b9d}:>11798
 ++Analyzers
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:analyzers
 ++Frameworks
@@ -151,8 +143,6 @@ i:{6f63e72d-8695-440d-b003-8d741b564b9d}:frameworks
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:packages
 ++launchSettings.json
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\properties\launchsettings.json
-++site.css
-i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\wwwroot\css\site.css
 ++AdminLTE-3.2.0
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\wwwroot\lib\adminlte-3.2.0\
 ++bootstrap
@@ -168,10 +158,22 @@ i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresourc
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\wwwroot\lib\jquery-validation-unobtrusive\
 ++HumanResourcesDbContext.cs
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\contexts\humanresourcesdbcontext.cs
+++PermitType.cs
+i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\enums\permittype.cs
 ++20220705124955_InitialCreate.cs
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\migrations\20220705124955_initialcreate.cs
 ++HumanResourcesDbContextModelSnapshot.cs
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\migrations\humanresourcesdbcontextmodelsnapshot.cs
+++_Layout.cshtml
+i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\views\shared\_layout.cshtml
+++_LoginPartial.cshtml
+i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\views\shared\_loginpartial.cshtml
+++_ValidationScriptsPartial.cshtml
+i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\views\shared\_validationscriptspartial.cshtml
+++Error.cshtml
+i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\views\shared\error.cshtml
+++appsettings.Development.json
+i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\appsettings.development.json
 ++MessagePackAnalyzer
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\.nuget\packages\messagepackanalyzer\2.1.152\analyzers\dotnet\messagepackanalyzer.dll
 ++Microsoft.AspNetCore.Analyzers
@@ -206,16 +208,18 @@ i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\program files\dotnet\packs\microsoft
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\microsoft.aspnetcore.app
 ++Microsoft.NETCore.App
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\microsoft.netcore.app
+++jQuery.UI.Combined (1.13.1)
+i:{6f63e72d-8695-440d-b003-8d741b564b9d}:>11822
 ++Microsoft.EntityFrameworkCore (6.0.6)
-i:{6f63e72d-8695-440d-b003-8d741b564b9d}:>11813
+i:{6f63e72d-8695-440d-b003-8d741b564b9d}:>11819
 ++Microsoft.EntityFrameworkCore.SqlServer (6.0.6)
-i:{6f63e72d-8695-440d-b003-8d741b564b9d}:>11814
+i:{6f63e72d-8695-440d-b003-8d741b564b9d}:>11820
 ++Microsoft.EntityFrameworkCore.Tools (6.0.6)
-i:{6f63e72d-8695-440d-b003-8d741b564b9d}:>11816
+i:{6f63e72d-8695-440d-b003-8d741b564b9d}:>11823
 ++Microsoft.VisualStudio.Web.CodeGeneration.Design (6.0.6)
-i:{6f63e72d-8695-440d-b003-8d741b564b9d}:>11817
+i:{6f63e72d-8695-440d-b003-8d741b564b9d}:>11824
 ++Swashbuckle.AspNetCore (6.3.0)
-i:{6f63e72d-8695-440d-b003-8d741b564b9d}:>11815
+i:{6f63e72d-8695-440d-b003-8d741b564b9d}:>11821
 ++dist
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\wwwroot\lib\adminlte-3.2.0\dist\
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\wwwroot\lib\bootstrap\dist\
@@ -239,6 +243,8 @@ i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresourc
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js
 ++20220705124955_InitialCreate.Designer.cs
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\migrations\20220705124955_initialcreate.designer.cs
+++_Layout.cshtml.css
+i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\views\shared\_layout.cshtml.css
 ++img
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\wwwroot\lib\adminlte-3.2.0\dist\img\
 ++bootstrap4-duallistbox
@@ -4351,11 +4357,3 @@ i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresourc
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\wwwroot\lib\adminlte-3.2.0\plugins\bootstrap\js\bootstrap.bundle.min.js.map
 ++bootstrap.esm.min.js.map
 i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map
-++jQuery.UI.Combined (1.13.1)
-i:{6f63e72d-8695-440d-b003-8d741b564b9d}:>11818
-++zabuto_calendar.min.css
-i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\wwwroot\css\zabuto_calendar.min.css
-++zabuto_calendar.min.js
-i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\wwwroot\js\zabuto_calendar.min.js
-++calender_init.js
-i:{6f63e72d-8695-440d-b003-8d741b564b9d}:c:\users\asus\source\repos\humanresources\wwwroot\js\calender_init.js

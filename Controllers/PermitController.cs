@@ -1,5 +1,4 @@
 ﻿using HumanResources.Contexts;
-using HumanResources.Enums;
 using HumanResources.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -17,39 +16,59 @@ namespace HumanResources.Controllers
 
         public IActionResult Index()
         {
-            var permitViewModels = new List<PermitViewModel>();
-            var query = from permit in _context.Permits
-                        join employee in _context.Employees on permit.EmployeeId equals employee.Id
-                        select new PermitViewModel()
-                        {
-                            EmployeeFullName = employee.FullName,
-                            StartDate = permit.StartDate,
-                            EndDate = permit.EndDate,
-                            PermitType = permit.Type == PermitType.Excused ? "Mazeretli" : "Mazeretsiz"
-                        };
+            var query2 = (from employee in _context.Employees
+                          join permit in _context.Permits on employee.Id equals permit.EmployeeId
+                          select new EmployeePermitsViewModel()
+                          {
+                              Id = employee.Id,
+                              EmployeeFullName = employee.FullName,
+                              Permits = employee.Permits
+                          }).ToList();
 
-            var model = query.ToList();
+            var dropedDupicatedItems = query2.GroupBy(x => x.Id)
+                .Select(x => x.First()).ToList();
 
-            return View(model);
+            return View(dropedDupicatedItems);
         }
 
-        public IActionResult GetPermits()
+        public IActionResult GetEmployeesWithPermits()
         {
-            var query = from permit in _context.Permits
-                        join employee in _context.Employees on permit.EmployeeId equals employee.Id
-                        select new PermitViewModel()
-                        {
-                            EmployeeFullName = employee.FullName,
-                            StartDate = permit.StartDate,
-                            EndDate = permit.EndDate,
-                            PermitType = permit.Type == PermitType.Excused ? "Mazeretli" : "Mazeretsiz"
-                        };
+            var query2 = (from employee in _context.Employees
+                          join permit in _context.Permits on employee.Id equals permit.EmployeeId
+                          select new EmployeePermitsViewModel()
+                          {
+                              Id = employee.Id,
+                              EmployeeFullName = employee.FullName,
+                              Permits = employee.Permits
+                          }).ToList();
 
-            var model = query.ToList();
-
-            var jsonData = JsonConvert.SerializeObject(model);
+            var jsonData = JsonConvert.SerializeObject(query2);
 
             return Json(jsonData);
         }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            var permit = new Permit();
+
+            var employees = _context.Employees.ToList();
+            ViewBag.EmployeeList = employees;
+            return PartialView("_CreatePermitModelPartial", permit);
+        }
+
+        [HttpPost]
+        public IActionResult Create(Permit permit)
+        {
+            var employees = _context.Employees.ToList();
+            ViewBag.EmployeeList = employees;
+            if (ModelState.IsValid)
+            {
+                _context.Permits.Add(permit);
+                _context.SaveChanges();
+            }
+            return PartialView("_CreatePermitModelPartial", permit);
+        }
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using HumanResources.Enums;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
 
 namespace HumanResources.Models
@@ -21,6 +22,7 @@ namespace HumanResources.Models
 
         public int EmployeeId { get; set; }
 
+        [ValidateNever]
         public Employee Employee { get; set; }
     }
 }

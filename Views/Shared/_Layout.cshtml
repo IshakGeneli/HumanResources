@@ -29,7 +29,7 @@
     
     <!-- Zabuto Calendar -->
     @*<link rel="stylesheet" href="~/css/zabuto_calendar.min.css">*@
-    @RenderSectionAsync("Styles", required:false)
+    @RenderSection("Styles", required:false)
 </head>
 <body class="hold-transition sidebar-mini layout-fixed dark-mode">
     <div class="wrapper">
@@ -197,6 +197,6 @@
     <script src="~/js/zabuto_calendar.min.js"></script>
 <script type="application/javascript" src="~/js/calender_init.js"></script>
 
-    @RenderSectionAsync("Scripts", required:false)
+    @RenderSection("Scripts", required:false)
 </body>
 </html>

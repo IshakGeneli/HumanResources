@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "vCW1QhwhZ1GD62KpqZZutdbuuf8s0zVZSv4QhA76r8c=",
+  "Hash": "uSawEpWgrtQPSHy9fcRTdMwMnNyvwyO4uDb0ImyTo5I=",
   "Source": "HumanResources",
   "BasePath": "_content/HumanResources",
   "Mode": "Default",
@@ -134,6 +134,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\zabuto_calendar.min.js"
+    },
+    {
+      "Identity": "C:\\Users\\ASUS\\source\\repos\\HumanResources\\wwwroot\\js\\zabuto_calender_fetching_data.js",
+      "SourceId": "HumanResources",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ASUS\\source\\repos\\HumanResources\\wwwroot\\",
+      "BasePath": "_content/HumanResources",
+      "RelativePath": "js/zabuto_calender_fetching_data.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\zabuto_calender_fetching_data.js"
     },
     {
       "Identity": "C:\\Users\\ASUS\\source\\repos\\HumanResources\\wwwroot\\lib\\AdminLTE-3.2.0\\dist\\css\\adminlte.css",

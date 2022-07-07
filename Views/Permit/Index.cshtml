@@ -1,4 +1,5 @@
-﻿@model IEnumerable<HumanResources.Models.PermitViewModel>
+﻿@*@model IEnumerable<HumanResources.Models.Employee>*@
+@model IEnumerable<HumanResources.Models.EmployeePermitsViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -8,6 +9,7 @@
 @section Styles
 {
     <link rel="stylesheet" href="~/css/zabuto_calendar.min.css">
+    <link rel="stylesheet" href="~/css/site.css"/>
 }
 
 <div id="place-holder-modal"></div>
@@ -16,9 +18,10 @@
     <div class="card m-3">
         <div class="card-header">
             <h3 class="card-title">İzin Listesi</h3>
-
-            <div  class="card-tools">
-                <button type="button" class="btn btn-success" data-toggle="ajax-modal" data-target="#addEmployee" data-url="@Url.Action("Create")">
+            
+            <div class="card-tools">
+               
+                <button type="button" class="btn btn-success" data-toggle="ajax-modal" data-target="#addPermit" data-url="@Url.Action("Create")">
                     <i class="bi bi-plus-circle"></i> İzin Ekle
                 </button>
             </div>
@@ -42,8 +45,13 @@
                             </th>
                             <th>
                                 Gün Çizelgesi
+                                @*<span>
+                                    <span class="permit-1-preview">0</span> Mazeretsiz | <span class="permit-2-preview">0</span> Gelmediği Günler
+                                </span>*@
                             </th>
-                            <th></th>
+                            <th>
+                                
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -66,8 +74,8 @@
                                     <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#editEmployee"
                                     data-url="@Url.Action($"Edit/")">
                                         <i class="bi bi-pencil-square"></i>
-                                    </button> |
-                                    @*<a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a> |*@
+                                    </button> @*|
+                                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a> |*@
                                     @*<button type="button" class="btn btn-danger" data-toggle="ajax-modal" data-target="#deleteEmployee"
                                     data-url="@Url.Action($"Delete/")">
                                         <i class="bi bi-trash3"></i>
@@ -90,39 +98,7 @@
 
 @section Scripts
 {
-    <script>
-        $(function() {
-            $.ajax({
-                url: 'Permit/GetPermits',
-                type: 'Get',
-                success: function(permits) {
-                    console.log(permits);
-
-                    var jsonPermits = jQuery.parseJSON(permits);
-
-                    $.each(jsonPermits, (index, value) => {
-                            console.log(value.StartDate.slice(0, -9));
-                            
-                            // TODO: StartDate - EndDate arasindaki tum tarihleri getirecek method yazilacak.
-
-                            var permits = [
-                                { "date": value.StartDate.slice(0, -9), "badge": value.PermitType === "Mazeretli" ? true : false }, // datetime yerine sadece date getirip slice metodunu kaldir.
-                                { "date": "2022-07-07", "badge": true }
-                            ];
-
-                            $("#my-calendar-" + value.Id).zabuto_calendar({
-                                language: "tr",
-                                nav_icon: {
-                                    prev: '<i class="fa fa-chevron-circle-left"></i>',
-                                    next: '<i class="fa fa-chevron-circle-right"></i>'
-                                },
-                                data: permits
-                            });
-                            
-                    });
-                }
-            });
-        })
+    <script src="~/js/zabuto_calender_fetching_data.js">
     </script>
 }
 

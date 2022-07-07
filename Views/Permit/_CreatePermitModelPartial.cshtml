@@ -1,0 +1,52 @@
+﻿@using HumanResources.Enums
+@model HumanResources.Models.Permit
+@{
+
+}
+
+<div class="modal fade" id="addPermit" aria-labelledby="addPermitLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addPermitLabel">İzin Ekle</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="bi bi-x-circle"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="@Url.Action("Create")">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Employee"></label>
+                        <select asp-for="EmployeeId" asp-items="@(new SelectList(@ViewBag.EmployeeList, "Id", "FullName"))" class="form-control">
+                            <option selected="selected" value="">Personel Seçiniz</option>
+                        </select>
+                        <span asp-validation-for="EmployeeId"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StartDate"></label>
+                        <input asp-for="StartDate" class="form-control" value="@DateTime.Now">
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="EndDate"></label>
+                        <input asp-for="EndDate" class="form-control" value="@DateTime.Now">
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Type"></label>
+                        @*<select asp-for="Type" class="form-control">*@
+                        <select asp-for="Type" asp-items="Html.GetEnumSelectList<PermitType>()" class="form-control">
+                            <option selected="selected" value="">Seçiniz</option>
+                        </select>
+                        <span asp-validation-for="Type" class="text-danger"></span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-primary" data-save="modal">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
