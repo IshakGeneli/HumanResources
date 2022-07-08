@@ -1,13 +1,31 @@
 using HumanResources.Contexts;
+using HumanResources.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("MSSQLConnection") ?? throw new InvalidOperationException("Connection string 'HumanResourcesDbContextConnection' not found.");
+
+builder.Services.AddDbContext<HumanResourcesDbContext>(options =>
+    options.UseSqlServer(connectionString)); ;
+
+builder.Services.AddDefaultIdentity<AppUser>(options =>
+    {
+        options.SignIn.RequireConfirmedAccount = false;
+        options.Password.RequireDigit = false;
+        options.Password.RequiredLength = 1;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireLowercase = false;
+        options.Password.RequireUppercase = false;
+    })
+    .AddEntityFrameworkStores<HumanResourcesDbContext>(); ;
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<HumanResourcesDbContext>(options => options.UseSqlServer(
     connectionString: builder.Configuration.GetConnectionString("MSSQLConnection"))
 );
+
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
@@ -24,10 +42,13 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapRazorPages();
 
 app.Run();

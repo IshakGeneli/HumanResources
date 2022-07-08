@@ -1,5 +1,6 @@
 ﻿using HumanResources.Contexts;
 using HumanResources.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HumanResources.Controllers
@@ -13,6 +14,7 @@ namespace HumanResources.Controllers
             _context = context;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             var employeeList = _context.Employees.ToList();

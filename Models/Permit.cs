@@ -22,6 +22,7 @@ namespace HumanResources.Models
 
         public int EmployeeId { get; set; }
 
+        [Display(Name = "Personel")]
         [ValidateNever]
         public Employee Employee { get; set; }
     }

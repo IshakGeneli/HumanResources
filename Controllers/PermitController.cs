@@ -1,10 +1,12 @@
 ﻿using HumanResources.Contexts;
 using HumanResources.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace HumanResources.Controllers
 {
+    [Authorize]
     public class PermitController : Controller
     {
         private readonly HumanResourcesDbContext _context;
