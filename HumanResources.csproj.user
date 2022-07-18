@@ -16,5 +16,6 @@
     <WebStackScaffolding_DbContextTypeFullName>HumanResources.Contexts.HumanResourcesDbContext</WebStackScaffolding_DbContextTypeFullName>
     <_SelectedScaffolderID>IdentityScaffolder</_SelectedScaffolderID>
     <_SelectedScaffolderCategoryPath>root/Identity</_SelectedScaffolderCategoryPath>
+    <WebStackScaffolding_LayoutPageFile />
   </PropertyGroup>
 </Project>

@@ -1,0 +1,42 @@
+﻿@using HumanResources.Enums
+@model HumanResources.Models.Permit
+
+@{
+    ViewData["Title"] = "EditPermit";
+}
+
+<hr />
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <form asp-action="EditPermit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="EmployeeId" />
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label"></label>
+                <input asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Type"></label>
+                <select asp-for="Type" asp-items="Html.GetEnumSelectList<PermitType>()" class="form-control">
+                </select>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
+                <a class="btn btn-secondary" asp-action="Index">Geri</a>
+                <input type="submit" value="Kaydet" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

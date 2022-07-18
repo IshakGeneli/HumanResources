@@ -26,9 +26,7 @@ $(function () {
         url: 'Permit/GetEmployeesWithPermits',
         type: 'Get',
         success: function (employees) {
-            console.log("Data Fetched");
-            console.log(employees);
-
+            
             var jsonEmployees = jQuery.parseJSON(employees);
 
             $.each(jsonEmployees,

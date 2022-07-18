@@ -1,0 +1,84 @@
+﻿@model Employee
+@{
+}
+
+<div class="modal fade" id="editPermit" aria-labelledby="editPermitLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editPermitLabel">İzin Güncelle</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="bi bi-x-circle"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @*<form action="@Url.Action("Edit")">*@
+                <div class="alert alert-info" role="alert">
+                    <span class="text-bold">@Model.FullName</span> personelinin izinlerini düzenliyorsunuz.
+                </div>
+                <table class="table table-head-fixed text-nowrap">
+                    <thead>
+                    <tr>
+                        <th>
+                            Başlangıç
+                        </th>
+                        <th class="text-center">
+                            Bitiş
+                        </th>
+                        <th>
+                            Tip
+                        </th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    @foreach (var permit in Model.Permits)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => permit.StartDate)
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelItem => permit.EndDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => permit.Type)
+                            </td>
+                                    
+                            <td class="text-right">
+                               @* <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#editPermit"
+                                        data-url="@Url.Action($"Edit/{permit.Id}")">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                                <button type="button" class="btn btn-danger" data-toggle="ajax-modal" data-target="#deletePermit"
+                                        data-url="@Url.Action($"Delete/{permit.Id}")">
+                                    <i class="bi bi-trash3"></i>
+                                </button>*@
+                                <a type="button" class="btn btn-primary" asp-controller="Permit" asp-action="EditPermit" asp-route-id="@permit.Id">
+                                            <i class="bi bi-pencil-square"></i>
+                                </a> |
+                                        
+                                <a type="button" class="btn btn-danger" asp-controller="Permit" asp-action="DeletePermit" asp-route-id="@permit.Id">
+                                            <i class="bi bi-trash3"></i>
+                                </a>
+                            </td>
+                        </tr>
+                                
+                    }
+                    </tbody>
+                </table>
+                @*</form>*@
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-primary" data-save="modal">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/site.js"></script>
+}

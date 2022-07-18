@@ -18,33 +18,33 @@ namespace HumanResources.Controllers
 
         public IActionResult Index()
         {
-            var query2 = (from employee in _context.Employees
-                          join permit in _context.Permits on employee.Id equals permit.EmployeeId
-                          select new EmployeePermitsViewModel()
-                          {
-                              Id = employee.Id,
-                              EmployeeFullName = employee.FullName,
-                              Permits = employee.Permits
-                          }).ToList();
+            var query = (from employee in _context.Employees
+                         join permit in _context.Permits on employee.Id equals permit.EmployeeId
+                         select new EmployeePermitsViewModel()
+                         {
+                             Id = employee.Id,
+                             EmployeeFullName = employee.FullName,
+                             Permits = employee.Permits
+                         }).ToList();
 
-            var dropedDupicatedItems = query2.GroupBy(x => x.Id)
+            var dropedDuplicatedItems = query.GroupBy(x => x.Id)
                 .Select(x => x.First()).ToList();
 
-            return View(dropedDupicatedItems);
+            return View(dropedDuplicatedItems);
         }
 
         public IActionResult GetEmployeesWithPermits()
         {
-            var query2 = (from employee in _context.Employees
-                          join permit in _context.Permits on employee.Id equals permit.EmployeeId
-                          select new EmployeePermitsViewModel()
-                          {
-                              Id = employee.Id,
-                              EmployeeFullName = employee.FullName,
-                              Permits = employee.Permits
-                          }).ToList();
+            var query = (from employee in _context.Employees
+                         join permit in _context.Permits on employee.Id equals permit.EmployeeId
+                         select new EmployeePermitsViewModel()
+                         {
+                             Id = employee.Id,
+                             EmployeeFullName = employee.FullName,
+                             Permits = employee.Permits
+                         }).ToList();
 
-            var jsonData = JsonConvert.SerializeObject(query2);
+            var jsonData = JsonConvert.SerializeObject(query);
 
             return Json(jsonData);
         }
@@ -72,5 +72,77 @@ namespace HumanResources.Controllers
             return PartialView("_CreatePermitModelPartial", permit);
         }
 
+        [HttpGet]
+        public IActionResult Detail(int id)
+        {
+            var findEmployee = _context.Employees.Find(id);
+            var query = (from employee in _context.Employees
+                         join permit in _context.Permits on employee.Id equals permit.EmployeeId
+                         select new EmployeePermitsViewModel()
+                         {
+                             Id = employee.Id,
+                             EmployeeFullName = employee.FullName,
+                             Permits = employee.Permits
+                         }).ToList();
+
+            return PartialView("_DetailPermitModelPartial", findEmployee);
+        }
+
+        //[HttpGet]
+        //public IActionResult Edit(int id)
+        //{
+        //    var permit = _context.Permits.Find(id);
+        //    return PartialView("_EditPermitModelPartial", permit);
+        //}
+
+        //[HttpPost]
+        //public IActionResult Edit(Permit permit)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Permits.Update(permit);
+        //        _context.SaveChanges();
+        //    }
+        //    return PartialView("_EditPermitModelPartial", permit);
+        //}
+
+        [HttpGet]
+        public IActionResult EditPermit(int id)
+        {
+            var permit = _context.Permits.Find(id);
+            return View(permit);
+        }
+
+        [HttpPost]
+        public IActionResult EditPermit(Permit permit)
+        {
+            _context.Permits.Update(permit);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        //[HttpGet]
+        //public IActionResult Delete(int id)
+        //{
+        //    var permit = _context.Permits.Find(id);
+        //    return PartialView("_DeletePermitModelPartial", permit);
+        //}
+
+        //[HttpPost]
+        //public IActionResult Delete(Permit permit)
+        //{
+        //    var deletePermit = _context.Permits.Find(permit.Id);
+        //    _context.Permits.Remove(deletePermit);
+        //    _context.SaveChanges();
+        //    return PartialView("_DeletePermitModelPartial", deletePermit);
+        //}
+
+        public IActionResult DeletePermit(int id)
+        {
+            var permit = _context.Permits.Find(id);
+            _context.Permits.Remove(permit);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }

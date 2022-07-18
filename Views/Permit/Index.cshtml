@@ -71,15 +71,10 @@
 
                                 </td>
                                 <td class="text-right">
-                                    <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#editEmployee"
-                                    data-url="@Url.Action($"Edit/")">
+                                    <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#detailPermits"
+                                    data-url="@Url.Action($"Detail/{item.Id}")">
                                         <i class="bi bi-pencil-square"></i>
-                                    </button> @*|
-                                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a> |*@
-                                    @*<button type="button" class="btn btn-danger" data-toggle="ajax-modal" data-target="#deleteEmployee"
-                                    data-url="@Url.Action($"Delete/")">
-                                        <i class="bi bi-trash3"></i>
-                                    </button>*@
+                                    </button>
                                 </td>
                             </tr>
 

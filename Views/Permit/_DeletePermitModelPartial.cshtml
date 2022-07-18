@@ -1,0 +1,32 @@
+﻿@model Permit
+@{
+
+}
+
+<div class="modal fade" id="deletePermit" aria-labelledby="deletePermitLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deletePermitLabel">İzin Kaydı Silinsin mi?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="bi bi-x-circle"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                
+                <form action="@Url.Action("Delete")">
+                    <div class="form-group">
+                        <input type="hidden" asp-for="Id" class="form-control">
+                        @*<label asp-for="Id"></label>*@
+                    </div>
+                    <span class="text-bold text-warning">@Model.StartDate</span> - <span class="text-bold text-warning">@Model.EndDate</span>
+                    aralıklı izni silmek istediğinize emin misiniz?
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal</button>
+                <button type="button" class="btn btn-primary" data-save="modal">Sil</button>
+            </div>
+        </div>
+    </div>
+</div>
