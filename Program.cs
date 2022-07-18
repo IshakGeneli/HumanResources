@@ -1,5 +1,6 @@
 using HumanResources.Contexts;
 using HumanResources.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,8 +17,8 @@ builder.Services.AddDefaultIdentity<AppUser>(options =>
         options.Password.RequireNonAlphanumeric = false;
         options.Password.RequireLowercase = false;
         options.Password.RequireUppercase = false;
-    })
-    .AddEntityFrameworkStores<HumanResourcesDbContext>(); ;
+    }).AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<HumanResourcesDbContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

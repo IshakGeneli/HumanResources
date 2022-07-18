@@ -8,10 +8,11 @@ namespace HumanResources.Controllers
     {
         public IActionResult Index()
         {
-            //if (!User.Identity.IsAuthenticated)
-            //{
-            //return Redirect("Identity/Account/Login");
-            //}
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("Identity/Account/Login");
+            }
+            //var a = User.Identities.FirstOrDefault().;
             return View();
         }
 

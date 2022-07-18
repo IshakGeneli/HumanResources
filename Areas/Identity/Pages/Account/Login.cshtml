@@ -18,7 +18,7 @@
             <form id="account" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="input-group mb-3">
-                    <input asp-for="Input.Email" class="form-control" autocomplete="email" aria-required="true"/>
+                    <input asp-for="Input.Email" class="form-control" autocomplete="email" aria-required="true" placeholder="E-posta"/>
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                     <div class="input-group-append">
                         <div class="input-group-text">
@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Şifre"/>
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                     <div class="input-group-append">
                         <div class="input-group-text">

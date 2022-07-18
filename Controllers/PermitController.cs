@@ -16,6 +16,7 @@ namespace HumanResources.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             var query = (from employee in _context.Employees
