@@ -2,6 +2,7 @@
 using HumanResources.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace HumanResources.Controllers
 {
@@ -71,6 +72,15 @@ namespace HumanResources.Controllers
             _context.Employees.Remove(deleteEmployee);
             _context.SaveChanges();
             return PartialView("_DeleteEmployeeModelPartial", deleteEmployee);
+        }
+
+        public IActionResult GetEmployees()
+        {
+            var employeeList = _context.Employees.ToList();
+
+            var jsonResult = JsonConvert.SerializeObject(employeeList);
+
+            return Json(jsonResult);
         }
     }
 }

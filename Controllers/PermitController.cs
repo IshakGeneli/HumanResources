@@ -45,7 +45,10 @@ namespace HumanResources.Controllers
                              Permits = employee.Permits
                          }).ToList();
 
-            var jsonData = JsonConvert.SerializeObject(query);
+            var dropedDuplicatedItems = query.GroupBy(x => x.Id)
+                .Select(x => x.First()).ToList();
+
+            var jsonData = JsonConvert.SerializeObject(dropedDuplicatedItems);
 
             return Json(jsonData);
         }

@@ -2,7 +2,38 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-6">
+            <div class="p-1 border rounded">
+                <canvas id="chart1"></canvas>  
+             </div>
+
+        </div>
+         <div class="col-6">
+             <div class="p-1 border rounded">
+                <canvas id="chart2"></canvas>  
+             </div>
+
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-8">
+            <div class="p-1 border rounded">
+                <canvas id="chart4"></canvas>  
+             </div>
+
+        </div>
+         <div class="col-4">
+             <div class="p-1 border rounded">
+                <canvas id="chart3"></canvas>  
+             </div>
+        </div>
+    </div>
 </div>
+
+@section Scripts{
+    <script src="~/js/date_methods.js"></script>
+    <script src="~/js/chartjs_config.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.0.0/chartjs-plugin-datalabels.min.js"></script>
+}

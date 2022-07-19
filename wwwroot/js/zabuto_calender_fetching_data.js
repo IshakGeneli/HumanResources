@@ -1,27 +1,4 @@
-﻿
-function getDatesBetweenTwoDates(startDateString, endDateString) {
-    var startDate = new Date(startDateString);
-    var endDate = new Date(endDateString);
-    var dateList = [];
-    for (var dt = startDate; dt <= endDate; dt.setDate(dt.getDate() + 1)) {
-        dateList.push(new Date(dt));
-    }
-    return dateList;
-}
-
-function formatDate(date) {
-    var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
-
-    if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
-
-    return [year, month, day].join('-');
-}
-
-$(function () {
+﻿$(function () {
     $.ajax({
         url: 'Permit/GetEmployeesWithPermits',
         type: 'Get',
@@ -36,7 +13,7 @@ $(function () {
 
                     employee.Permits.forEach((permit) => {
                         var dateList = getDatesBetweenTwoDates(permit.StartDate.slice(0, -9), permit.EndDate.slice(0, -9));
-
+                        var weekDays = getWeekDays(dateList);
                         var hasBadge = false;
 
                         switch (permit.Type) {
@@ -45,21 +22,22 @@ $(function () {
                             default:
                         }
 
-                        for (var i = 0; i < dateList.length; i++) {
-                            permits.push({ date: formatDate(dateList[i]), badge: hasBadge });
+                        for (var i = 0; i < weekDays.length; i++) {
+                            permits.push({ date: formatDate(weekDays[i]), badge: hasBadge });
                         }
+
                     });
 
 
                     $("#my-calendar-" + employee.Id).zabuto_calendar({
                         language: "tr",
                         cell_border: true,
-                        //nav_icon: {
-                        //    prev: '<i class="fa fa-chevron-circle-left"></i>',
-                        //    next: '<i class="fa fa-chevron-circle-right"></i>'
-                        //},
-                        show_previous: false,
-                        show_next: false,
+                        nav_icon: {
+                            prev: '<i class="fa fa-chevron-circle-left"></i>',
+                            next: '<i class="fa fa-chevron-circle-right"></i>'
+                        },
+                        show_previous: true,
+                        show_next: true,
                         legend: [
                             { type: "text", label: "Mazeretsiz", badge: "00" },
                             { type: "block", label: "Gelmediği Günler" }
