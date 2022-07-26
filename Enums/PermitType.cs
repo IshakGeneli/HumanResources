@@ -10,7 +10,8 @@ namespace HumanResources.Enums
         [Display(Name = "Mazeretsiz")]
         Unexcused = 2,
 
-        //[Display(Name = "İzinli")]
-        //OnLeave = 3
+        [Display(Name = "İzinli")]
+        OnLeave = 3
     }
+
 }

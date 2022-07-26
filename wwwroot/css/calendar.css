@@ -1,0 +1,81 @@
+﻿#calendar {
+    display: flex;
+    flex-direction: column;
+}
+
+.calendar-body {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #fff;
+}
+
+.calendar-body .square {
+    width: auto;
+    min-width: 28px;
+    background-color: #fff;
+    color: rgb(55, 55, 55);
+    border: 1px solid rgb(154, 154, 154);
+    border-right: none;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .calendar-body .square:last-child {
+        border-right: 1px solid rgb(154, 154, 154);
+    }
+
+    .calendar-body .square.bg-primary, .calendar-header .legend.bg-primary {
+        color: rgb(55, 55, 55) !important;
+        background-color: #56a8ff !important;
+    }
+    .calendar-body .square.bg-warning, .calendar-header .legend.bg-warning {
+        color: rgb(55, 55, 55) !important;
+        background-color: #ffd861 !important;
+    }
+    .calendar-body .square.bg-danger, .calendar-header .legend.bg-danger {
+        color: rgb(55, 55, 55) !important;
+        background-color: #f15e6c !important;
+    }
+
+.disabled-day {
+    background-color: #d8d8d8 !important;
+    color: rgb(154, 154, 154) !important;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    background: #fff;
+    color: #000;
+    padding: 5px;
+}
+
+.calendar-header-left{
+    width: 20%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.calendar-header-right > .calendar-legend {
+    font-size: .7rem;
+}
+
+    .calendar-header-right > .calendar-legend > .legend-group > .legend {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+    }
+
+
+.calendar-btn {
+    border: none;
+    background: none;
+    border-radius: 50%;
+    transition: 0.2s all ease-in;
+}
+.calendar-btn:hover {
+    color: white;
+    background: black;
+}

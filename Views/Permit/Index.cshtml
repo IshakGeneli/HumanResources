@@ -1,4 +1,5 @@
-﻿@*@model IEnumerable<HumanResources.Models.Employee>*@
+﻿@using HumanResources.Enums
+@*@model IEnumerable<HumanResources.Models.Employee>*@
 @model IEnumerable<HumanResources.Models.EmployeePermitsViewModel>
 
 @{
@@ -7,9 +8,13 @@
 }
 
 @section Styles
-{
-    <link rel="stylesheet" href="~/css/zabuto_calendar.min.css">
-    <link rel="stylesheet" href="~/css/site.css"/>
+{@*
+<link rel="stylesheet" href="~/css/zabuto_calendar.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.1.0/main.min.css">*@
+
+<link rel="stylesheet" href="~/css/calendar.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+
 }
 
 <div id="place-holder-modal"></div>
@@ -17,14 +22,45 @@
 <div class="col-12">
     <div class="card m-3">
         <div class="card-header">
-            <h3 class="card-title">İzin Listesi</h3>
-            
-            <div class="card-tools">
-               
+            <div class="d-flex justify-content-between align-items-center">
+                <h3 class="card-title">İzin Listesi</h3>
+                <div class="d-flex flex-row align-items-baseline">
+                    <span class="mr-1">Tarih Filtrele: </span>
+                    <div class="d-flex">
+                        <div class="form-group mr-1 mb-0">
+                            <select id="month-filter" asp-items="Html.GetEnumSelectList<Months>()" class="form-control">
+                                <option selected="selected" value="" disabled>Ay</option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-0">
+                            <select id="year-filter" class="form-control">
+                                <option selected="selected" value="" disabled>Yıl</option>
+                                <option>2010</option>
+                                <option>2011</option>
+                                <option>2012</option>
+                                <option>2013</option>
+                                <option>2014</option>
+                                <option>2015</option>
+                                <option>2016</option>
+                                <option>2017</option>
+                                <option>2018</option>
+                                <option>2019</option>
+                                <option>2020</option>
+                                <option>2021</option>
+                                <option>2022</option>
+                                <option>2023</option>
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
                 <button type="button" class="btn btn-success" data-toggle="ajax-modal" data-target="#addPermit" data-url="@Url.Action("Create")">
                     <i class="bi bi-plus-circle"></i> İzin Ekle
                 </button>
+
             </div>
+
         </div>
         <!-- /.card-header -->
         <div class="card-body table-responsive p-0" style="height: 70vh">
@@ -45,12 +81,9 @@
                             </th>
                             <th>
                                 Gün Çizelgesi
-                                @*<span>
-                                    <span class="permit-1-preview">0</span> Mazeretsiz | <span class="permit-2-preview">0</span> Gelmediği Günler
-                                </span>*@
                             </th>
                             <th>
-                                
+
                             </th>
                         </tr>
                     </thead>
@@ -67,7 +100,9 @@
                                     @Html.DisplayFor(modelItem => item.EmployeeFullName)
                                 </td>
                                 <td>
-                                    <div id="my-calendar-@item.Id" style="color: black"></div>
+                                    @*<div id="my-calendar-@item.Id" style="color: black"></div>*@ @* Zabuto*@
+                                        
+                                    <div id="calendar-@item.Id"></div>
 
                                 </td>
                                 <td class="text-right">
@@ -79,7 +114,7 @@
                             </tr>
 
                             sequence++;
-                           
+
                         }
                     </tbody>
                 </table>
@@ -93,9 +128,16 @@
 
 @section Scripts
 {
+    
+    @*<script src="~/js/zabuto_calendar.min.js"></script>*@
+    
     <script src="~/js/date_methods.js"></script>
-    <script src="~/js/zabuto_calender_fetching_data.js">
-    </script>
+    @*<script src="~/js/zabuto_calender_fetching_data.js"></script>*@
+
+    <script src="~/js/custom-calendar.js"></script>
+    <script src="~/js/custom-calendar-fetching-data.js"></script>
+
+
 }
 
 

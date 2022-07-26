@@ -34,7 +34,7 @@ namespace HumanResources.Controllers
             return View(dropedDuplicatedItems);
         }
 
-        public IActionResult GetEmployeesWithPermits()
+        public IActionResult GetEmployeesWithPermits(int month, int year)
         {
             var query = (from employee in _context.Employees
                          join permit in _context.Permits on employee.Id equals permit.EmployeeId
@@ -42,7 +42,9 @@ namespace HumanResources.Controllers
                          {
                              Id = employee.Id,
                              EmployeeFullName = employee.FullName,
-                             Permits = employee.Permits
+                             Permits = employee.Permits,
+                             Month = month,
+                             Year = year
                          }).ToList();
 
             var dropedDuplicatedItems = query.GroupBy(x => x.Id)
