@@ -1,4 +1,6 @@
 ﻿using HumanResources.Contexts;
+using HumanResources.Enums;
+using HumanResources.GlobalMethods;
 using HumanResources.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +36,7 @@ namespace HumanResources.Controllers
             return View(dropedDuplicatedItems);
         }
 
-        public IActionResult GetEmployeesWithPermits(int month, int year)
+        public IActionResult GetEmployeesWithPermits()
         {
             var query = (from employee in _context.Employees
                          join permit in _context.Permits on employee.Id equals permit.EmployeeId
@@ -42,9 +44,8 @@ namespace HumanResources.Controllers
                          {
                              Id = employee.Id,
                              EmployeeFullName = employee.FullName,
+                             RemainPermitCount = employee.RemainPermitCount,
                              Permits = employee.Permits,
-                             Month = month,
-                             Year = year
                          }).ToList();
 
             var dropedDuplicatedItems = query.GroupBy(x => x.Id)
@@ -70,8 +71,19 @@ namespace HumanResources.Controllers
         {
             var employees = _context.Employees.ToList();
             ViewBag.EmployeeList = employees;
+
             if (ModelState.IsValid)
             {
+                var employee = _context.Employees.Find(permit.EmployeeId);
+
+                var dayCount = DateMethods.GetDayCountTwoDates(permit.StartDate, permit.EndDate);
+
+                if (permit.Type == PermitType.OnLeave)
+                {
+                    employee.RemainPermitCount -= dayCount;
+                }
+
+                _context.Employees.Update(employee);
                 _context.Permits.Add(permit);
                 _context.SaveChanges();
             }
@@ -146,9 +158,26 @@ namespace HumanResources.Controllers
         public IActionResult DeletePermit(int id)
         {
             var permit = _context.Permits.Find(id);
+
+            RemainPermitCountIncreaser(permit);
+
             _context.Permits.Remove(permit);
             _context.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public void RemainPermitCountIncreaser(Permit permit)
+        {
+            if (permit.Type == PermitType.OnLeave)
+            {
+                var dateList = DateMethods.GetDatesBetweenTwoDates(permit.StartDate, permit.EndDate);
+                var weekDays = DateMethods.GetWeekDays(dateList);
+
+                var employee = _context.Employees.Find(permit.EmployeeId);
+
+                employee.RemainPermitCount += weekDays.Count;
+                _context.Employees.Update(employee);
+            }
         }
     }
 }

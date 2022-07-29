@@ -58,9 +58,13 @@
     justify-content: space-between;
 }
 
-.calendar-header-right > .calendar-legend {
-    font-size: .7rem;
+.calendar-header-right{
+    display: flex;
 }
+
+    .calendar-header-right > .calendar-legend, .calendar-header-right > .other-info {
+        font-size: .7rem;
+    }
 
     .calendar-header-right > .calendar-legend > .legend-group > .legend {
         display: inline-block;

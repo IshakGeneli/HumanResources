@@ -18,9 +18,10 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="Employee"></label>
-                        <select asp-for="EmployeeId" asp-items="@(new SelectList(@ViewBag.EmployeeList, "Id", "FullName"))" class="form-control">
-                            <option selected="selected" value="">Personel Seçiniz</option>
+                        <select id="employee-id" asp-for="EmployeeId" asp-items="@(new SelectList(@ViewBag.EmployeeList, "Id", "FullName"))" class="form-control">
+                            <option selected="selected" value="" disabled>Personel Seçiniz</option>
                         </select>
+                        <span id="remain-permit-text" style="display: none"></span>
                         <span asp-validation-for="EmployeeId"></span>
                     </div>
                     <div class="form-group">
@@ -50,3 +51,26 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(function (){
+        $("#employee-id").on("change", function(){
+            
+            $.ajax({
+                url: 'Employee/GetEmployeeById',
+                type: 'Get',
+                dataType: 'JSON',
+                data: { id: this.value },
+                success: function (employee) {
+                    var jsonEmployee = jQuery.parseJSON(employee);
+
+                    var spanText = `Kalan izin sayısı: ${jsonEmployee.RemainPermitCount}`;
+                    var remainPermitSpan = $("#remain-permit-text").text(spanText).css("display", "block");
+                    remainPermitSpan.addClass("text-warning");
+                }
+            });
+
+        });
+    });
+</script>
+

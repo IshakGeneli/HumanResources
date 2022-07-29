@@ -1,4 +1,5 @@
-﻿@model Employee
+﻿@using HumanResources.GlobalMethods
+@model Employee
 @{
 }
 
@@ -26,6 +27,9 @@
                             Bitiş
                         </th>
                         <th>
+                            Gün Sayısı
+                        </th>
+                        <th>
                             Tip
                         </th>
                         <th></th>
@@ -41,6 +45,10 @@
                             </td>
                             <td class="text-center">
                                 @Html.DisplayFor(modelItem => permit.EndDate)
+                                    
+                            </td>
+                            <td class="text-center">
+                                @DateMethods.GetWeekDays(DateMethods.GetDatesBetweenTwoDates(permit.StartDate, permit.EndDate)).Count
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => permit.Type)
@@ -55,11 +63,11 @@
                                         data-url="@Url.Action($"Delete/{permit.Id}")">
                                     <i class="bi bi-trash3"></i>
                                 </button>*@
-                                <a type="button" class="btn btn-primary" asp-controller="Permit" asp-action="EditPermit" asp-route-id="@permit.Id">
+                                <a type="button" class="btn btn-sm btn-primary" asp-controller="Permit" asp-action="EditPermit" asp-route-id="@permit.Id">
                                             <i class="bi bi-pencil-square"></i>
                                 </a> |
                                         
-                                <a type="button" class="btn btn-danger" asp-controller="Permit" asp-action="DeletePermit" asp-route-id="@permit.Id">
+                                <a type="button" class="btn btn-sm btn-danger" asp-controller="Permit" asp-action="DeletePermit" asp-route-id="@permit.Id">
                                             <i class="bi bi-trash3"></i>
                                 </a>
                             </td>

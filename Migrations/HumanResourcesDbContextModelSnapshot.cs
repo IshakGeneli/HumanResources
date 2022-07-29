@@ -95,14 +95,10 @@ namespace HumanResources.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AnnualPermitCount")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("Date");
 
                     b.Property<string>("Department")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FullName")
@@ -110,7 +106,10 @@ namespace HumanResources.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("HireDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("Date");
+
+                    b.Property<int>("RemainPermitCount")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

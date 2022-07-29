@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HumanResources.Models.Employee>
+﻿@model IEnumerable<HumanResources.ViewModels.EmployeeViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -47,6 +47,9 @@
                             <th class="text-center">
                                 @Html.DisplayNameFor(model => model.AnnualPermitCount)
                             </th>
+                            <th class="text-center">
+                                @Html.DisplayNameFor(model => model.RemainPermitCount)
+                            </th>
                             <th></th>
                         </tr>
                     </thead>
@@ -73,6 +76,9 @@
                                 </td>
                                 <td class="text-center">
                                     @Html.DisplayFor(modelItem => item.AnnualPermitCount)
+                                </td>
+                                <td class="text-center">
+                                    @Html.DisplayFor(modelItem => item.RemainPermitCount)
                                 </td>
                                 <td class="text-right">
                                     <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#editEmployee"

@@ -1,6 +1,7 @@
 using HumanResources.Contexts;
 using HumanResources.Identity;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +22,11 @@ builder.Services.AddDefaultIdentity<AppUser>(options =>
     .AddEntityFrameworkStores<HumanResourcesDbContext>();
 
 // Add services to the container.
+builder.Services.Configure<CookieTempDataProviderOptions>(options =>
+{
+    options.Cookie.IsEssential = true;
+});
+builder.Services.AddMemoryCache();
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<HumanResourcesDbContext>(options => options.UseSqlServer(
     connectionString: builder.Configuration.GetConnectionString("MSSQLConnection"))

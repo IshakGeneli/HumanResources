@@ -36,3 +36,15 @@ function getDayCountBetweenTwoDates(startDate, endDate) {
     var weekDays = getWeekDays(dateList);
     return weekDays.length;
 }
+
+function getDateCountByMonth(dateList, month) {
+   
+    var count = 0;
+    dateList.forEach((date) => {
+        var formattedDate = formatDate(date);
+        if (parseInt(formattedDate.substring(5, 7)) == month) {
+            count++;
+        }
+    });
+    return count;
+}

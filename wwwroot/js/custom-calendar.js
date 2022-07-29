@@ -1,5 +1,4 @@
-﻿
-function getMonthNames(language) {
+﻿function getMonthNames(language) {
     var monthNames = []
     switch (language) {
         case "en":
@@ -14,6 +13,7 @@ function getMonthNames(language) {
     }
     return monthNames;
 }
+
 function drawCalendar(obj) {
     var count = getDayCountInMonth(obj.month, obj.year);
 
@@ -72,6 +72,12 @@ function drawCalendarHeader(obj) {
 
     var headerRight = document.createElement("div");
     headerRight.classList.add("calendar-header-right");
+
+    var otherInfo = document.createElement("div");
+    otherInfo.classList.add("other-info");
+    otherInfo.innerHTML = obj.info;
+
+    headerRight.appendChild(otherInfo);
 
     var legend = '<div class="calendar-legend d-flex">' + createLegendString(obj.legends) + '</div>';
 
@@ -150,7 +156,7 @@ function createLegendString(legends) {
     var str = ""
     legends.forEach(legend => {
         str += '<div class="legend-group mx-1">' +
-            ' <span class="legend bg-' + legend.type + '"></span> <span>' + legend.text + '</span>' +
+            ' <span class="legend bg-' + legend.type + '"></span> <span>' + legend.text + ": " + legend.value + '</span>' +
             '</div>'
     })
 

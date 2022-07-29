@@ -1,6 +1,10 @@
 ﻿using HumanResources.Contexts;
+using HumanResources.GlobalMethods;
+using HumanResources.Identity;
 using HumanResources.Models;
+using HumanResources.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -9,8 +13,7 @@ namespace HumanResources.Controllers
     public class EmployeeController : Controller
     {
         private readonly HumanResourcesDbContext _context;
-
-        public EmployeeController(HumanResourcesDbContext context)
+        public EmployeeController(HumanResourcesDbContext context, UserManager<AppUser> userManager)
         {
             _context = context;
         }
@@ -19,7 +22,45 @@ namespace HumanResources.Controllers
         public IActionResult Index()
         {
             var employeeList = _context.Employees.ToList();
-            return View(employeeList);
+
+            var employeeViewModelList = new List<EmployeeViewModel>();
+
+            foreach (var employee in employeeList)
+            {
+                var age = DateMethods.GetYearDifferenceFromToday(employee.BirthDate);
+
+                var hireYear = DateMethods.GetYearDifferenceFromToday(employee.HireDate);
+
+                var annualPermitCount = 0;
+
+                if (hireYear >= 1 && hireYear <= 5)
+                {
+                    annualPermitCount = 14;
+                }
+                else if (hireYear > 5 && hireYear < 15)
+                {
+                    annualPermitCount = 20;
+                }
+                else if (hireYear >= 15)
+                {
+                    annualPermitCount = 26;
+                }
+
+                var employeeViewModel = new EmployeeViewModel()
+                {
+                    Id = employee.Id,
+                    FullName = employee.FullName,
+                    HireDate = employee.HireDate,
+                    Department = employee.Department,
+                    Age = age,
+                    AnnualPermitCount = annualPermitCount,
+                    RemainPermitCount = employee.RemainPermitCount,
+                };
+
+                employeeViewModelList.Add(employeeViewModel);
+            }
+
+            return View(employeeViewModelList);
         }
 
         [HttpGet]
@@ -34,6 +75,24 @@ namespace HumanResources.Controllers
         {
             if (ModelState.IsValid)
             {
+                var hireYear = DateMethods.GetYearDifferenceFromToday(employee.HireDate);
+
+                var remainPermitCount = 0;
+
+                if (hireYear >= 1 && hireYear <= 5)
+                {
+                    remainPermitCount = 14;
+                }
+                else if (hireYear > 5 && hireYear < 15)
+                {
+                    remainPermitCount = 20;
+                }
+                else if (hireYear >= 15)
+                {
+                    remainPermitCount = 26;
+                }
+
+                employee.RemainPermitCount = remainPermitCount;
                 _context.Employees.Add(employee);
                 _context.SaveChanges();
             }
@@ -79,6 +138,15 @@ namespace HumanResources.Controllers
             var employeeList = _context.Employees.ToList();
 
             var jsonResult = JsonConvert.SerializeObject(employeeList);
+
+            return Json(jsonResult);
+        }
+
+        public IActionResult GetEmployeeById(int id)
+        {
+            var employee = _context.Employees.Find(id);
+
+            var jsonResult = JsonConvert.SerializeObject(employee);
 
             return Json(jsonResult);
         }

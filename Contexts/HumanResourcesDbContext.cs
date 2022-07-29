@@ -7,8 +7,20 @@ namespace HumanResources.Contexts
 {
     public class HumanResourcesDbContext : IdentityDbContext<AppUser>
     {
+        public HumanResourcesDbContext()
+        {
+
+        }
         public HumanResourcesDbContext(DbContextOptions<HumanResourcesDbContext> options) : base(options)
         {
+
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<Employee>().Property(p => p.BirthDate).HasColumnType("Date");
+            builder.Entity<Employee>().Property(p => p.HireDate).HasColumnType("Date");
 
         }
 
