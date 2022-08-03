@@ -21,6 +21,8 @@ builder.Services.AddDefaultIdentity<AppUser>(options =>
     }).AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<HumanResourcesDbContext>();
 
+
+
 // Add services to the container.
 builder.Services.Configure<CookieTempDataProviderOptions>(options =>
 {

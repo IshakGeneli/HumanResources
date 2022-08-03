@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>İnsan Kaynakları Yönetim Paneli</title>
 
@@ -132,7 +132,19 @@
                                             <p>İzin Listesi</p>
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a asp-action="ListAllUsersReports" asp-controller="Report" class="nav-link active">
+                                            <i class="bi bi-journals"></i>
+                                            <p>Rapor Listesi</p>
+                                        </a>
+                                    </li>
                                 }
+                                <li class="nav-item">
+                                    <a asp-action="ListUserReports" asp-controller="Report" class="nav-link active">
+                                        <i class="bi bi-journal"></i>
+                                        <p>Raporlarım</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                        

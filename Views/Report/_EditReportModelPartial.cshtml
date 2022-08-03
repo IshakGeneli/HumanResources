@@ -1,0 +1,56 @@
+﻿@using HumanResources.Enums
+@model HumanResources.Models.Report
+@{
+
+}
+
+<div class="modal fade" id="editReport" aria-labelledby="editReportLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editReportLabel">Rapor Düzenle</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="bi bi-x-circle"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="@Url.Action("Edit")">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="ReportDate"></label>
+                        <input asp-for="ReportDate" class="form-control">
+                        <span asp-validation-for="ReportDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ProjectName"></label>
+                        <select asp-for="ProjectName" asp-items="Html.GetEnumSelectList<ProjectName>()" class="form-control">
+                            <option value="" disabled>Proje İsmi Seçiniz</option>
+                        </select>
+                        <span asp-validation-for="ProjectName"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ProjectType"></label>
+                        <select asp-for="ProjectType" asp-items="Html.GetEnumSelectList<ProjectType>()" class="form-control">
+                            <option value="" disabled>Proje Türü Seçiniz</option>
+                        </select>
+                        <span asp-validation-for="ProjectType"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description"></label>
+                        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Percentage"></label>
+                        <input asp-for="Percentage" class="form-control" placeholder="50">
+                        <span asp-validation-for="Percentage" class="text-danger"></span>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                <button type="button" class="btn btn-primary" data-save="modal">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>

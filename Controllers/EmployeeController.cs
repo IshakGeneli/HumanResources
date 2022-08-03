@@ -13,9 +13,11 @@ namespace HumanResources.Controllers
     public class EmployeeController : Controller
     {
         private readonly HumanResourcesDbContext _context;
+        private readonly UserManager<AppUser> _userManager;
         public EmployeeController(HumanResourcesDbContext context, UserManager<AppUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         [Authorize]
@@ -71,7 +73,7 @@ namespace HumanResources.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Employee employee)
+        public async Task<IActionResult> Create(Employee employee)
         {
             if (ModelState.IsValid)
             {
@@ -93,6 +95,16 @@ namespace HumanResources.Controllers
                 }
 
                 employee.RemainPermitCount = remainPermitCount;
+
+                var user = new AppUser
+                {
+                    UserName = employee.FullName.ToLower().Replace(" ", ""),
+                    Email = $"{employee.FullName.ToLower().Replace(" ", "")}@gmail.com"
+                };
+                await _userManager.CreateAsync(user, password: "123456");
+
+                employee.UserId = user.Id;
+
                 _context.Employees.Add(employee);
                 _context.SaveChanges();
             }
@@ -125,11 +137,17 @@ namespace HumanResources.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(Employee employee)
+        public async Task<IActionResult> Delete(Employee employee)
         {
             var deleteEmployee = _context.Employees.Find(employee.Id);
+
             _context.Employees.Remove(deleteEmployee);
             _context.SaveChanges();
+
+            var user = await _userManager.FindByIdAsync(deleteEmployee.UserId);
+
+            await _userManager.DeleteAsync(user);
+
             return PartialView("_DeleteEmployeeModelPartial", deleteEmployee);
         }
 

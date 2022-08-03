@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HumanResources.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace HumanResources.Models
 {
@@ -7,9 +9,15 @@ namespace HumanResources.Models
         [Key]
         public int Id { get; set; }
 
+        [ValidateNever]
+        public string UserId { get; set; }
+
+        [ValidateNever]
+        public AppUser User { get; set; }
+
         [Required]
         [Display(Name = "Ad Soyad")]
-        public string? FullName { get; set; }
+        public string FullName { get; set; }
 
         [Display(Name = "Doğum Tarihi")]
         [DataType(DataType.Date)]

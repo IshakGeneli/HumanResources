@@ -43,7 +43,6 @@ namespace HumanResources.Areas.Identity.Pages.Account
         {
 
             [Required]
-            [EmailAddress]
             [Display(Name = "Eposta")]
             public string Email { get; set; }
 
@@ -54,7 +53,7 @@ namespace HumanResources.Areas.Identity.Pages.Account
 
             [DataType(DataType.Password)]
             [Display(Name = "Parola Onay")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password", ErrorMessage = "Parolalar Eşleşmiyor!")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -70,7 +69,7 @@ namespace HumanResources.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new AppUser { UserName = Input.Email, Email = Input.Email };
+                var user = new AppUser { UserName = Input.Email.Substring(0, Input.Email.IndexOf("@")), Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

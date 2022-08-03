@@ -1,0 +1,109 @@
+﻿@model IEnumerable<HumanResources.ViewModels.ReportViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@section Styles{
+<link rel="stylesheet" href="~/lib/vanilla-calendar/src/vanillaCalendar.css" />
+}
+
+<div id="place-holder-modal"></div>
+
+<div class="col-12">
+    <div class="card m-3">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <h3 class="card-title">Rapor Listesi</h3>
+            </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body table-responsive p-0" style="height: 70vh">
+            <div class="container">
+                <div class="row mx-0">
+                    <div class="col-xl-4 col-lg-5 mt-4">
+                        <div class="calendar-container" style="color: #333;">
+                            <div id="v-cal-AllUsers" class="v-cal" data-calendar="vanilla">
+                                <div class="vcal-header">
+                                    <button class="vcal-btn" data-calendar-toggle="previous">
+                                        <svg height="24" version="1.1" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path>
+                                        </svg>
+                                    </button>
+
+                                    <div class="vcal-header__label" data-calendar-label="month">
+                                        [MONTH] [YEAR]
+                                    </div>
+                                    <button class="vcal-btn" data-calendar-toggle="next">
+                                        <svg height="24" version="1.1" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="vcal-week">
+                                    <span>Pzt</span>
+                                    <span>Sa</span>
+                                    <span>Çar</span>
+                                    <span>Per</span>
+                                    <span>Cum</span>
+                                    <span>Cmt</span>
+                                    <span>Paz</span>
+                                </div>
+                                <div class="vcal-body" data-calendar-area="month"></div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-xl-8 col-lg-7 mt-4">
+                        <p class="demo-picked d-flex justify-content-between">
+                            <span>Rapor Tarihi: <span class="text-warning" data-calendar-label="picked"></span></span>
+                            <span style="background: #f15e6c;padding: .7%;">Geç Girilen Rapor</span>
+                        </p>
+                        <table class="table table-head-fixed">
+                            <thead>
+                                <tr>
+
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.OwnerFullName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ProjectName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ProjectType)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Description)
+                                    </th>
+                                    <th class="text-center">
+                                        @Html.DisplayNameFor(model => model.Percentage)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="filtered-data">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</div>
+
+@section Scripts{
+<script src="~/js/date_methods.js"></script>
+<script src="~/lib/vanilla-calendar/src/vanillaCalendar.js" charset="utf-8"></script>
+<script src="~/js/vanilla_calendar_config.js"></script>
+<script>
+    window.addEventListener('load', function() {
+        vanillaCalendar.init({
+            disablePastDays: false,
+            lang: "tr"
+        });
+    })
+</script>
+}
+

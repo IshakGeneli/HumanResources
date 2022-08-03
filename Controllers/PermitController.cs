@@ -78,14 +78,17 @@ namespace HumanResources.Controllers
 
                 var dayCount = DateMethods.GetDayCountTwoDates(permit.StartDate, permit.EndDate);
 
-                if (permit.Type == PermitType.OnLeave)
+                if (employee != null)
                 {
-                    employee.RemainPermitCount -= dayCount;
-                }
+                    if (permit.Type == PermitType.OnLeave)
+                    {
+                        employee.RemainPermitCount -= dayCount;
+                    }
 
-                _context.Employees.Update(employee);
-                _context.Permits.Add(permit);
-                _context.SaveChanges();
+                    _context.Employees.Update(employee);
+                    _context.Permits.Add(permit);
+                    _context.SaveChanges();
+                }
             }
             return PartialView("_CreatePermitModelPartial", permit);
         }

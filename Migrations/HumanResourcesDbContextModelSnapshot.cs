@@ -85,6 +85,24 @@ namespace HumanResources.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "f73826e9-34c2-43cd-82aa-ec181350c358",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "6d4a443c-9461-4759-b7c3-2ae4d5a5e20b",
+                            Email = "admin@admin.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@ADMIN.COM",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMhQBA+51W0bCuK1DLq31zOsaKptpls1VfLT/FmEberw0enEE3mcqd68c6hPKBlMwQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "9ba08d8f-5e25-4241-9760-b84510dea125",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        });
                 });
 
             modelBuilder.Entity("HumanResources.Models.Employee", b =>
@@ -111,7 +129,13 @@ namespace HumanResources.Migrations
                     b.Property<int>("RemainPermitCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Employees");
                 });
@@ -143,6 +167,44 @@ namespace HumanResources.Migrations
                     b.ToTable("Permits");
                 });
 
+            modelBuilder.Entity("HumanResources.Models.Report", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EntryDate")
+                        .HasColumnType("Date");
+
+                    b.Property<string>("OwnerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<byte>("Percentage")
+                        .HasColumnType("tinyint");
+
+                    b.Property<int>("ProjectName")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProjectType")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ReportDate")
+                        .HasColumnType("Date");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.ToTable("Reports");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -168,6 +230,15 @@ namespace HumanResources.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "18a7bbf3-014b-4426-bb7d-5e8ad5dd6df0",
+                            ConcurrencyStamp = "0f750a79-5592-48ba-b8cb-635974ec0d3a",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -257,6 +328,13 @@ namespace HumanResources.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "f73826e9-34c2-43cd-82aa-ec181350c358",
+                            RoleId = "18a7bbf3-014b-4426-bb7d-5e8ad5dd6df0"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -280,6 +358,17 @@ namespace HumanResources.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("HumanResources.Models.Employee", b =>
+                {
+                    b.HasOne("HumanResources.Identity.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("HumanResources.Models.Permit", b =>
                 {
                     b.HasOne("HumanResources.Models.Employee", "Employee")
@@ -289,6 +378,17 @@ namespace HumanResources.Migrations
                         .IsRequired();
 
                     b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("HumanResources.Models.Report", b =>
+                {
+                    b.HasOne("HumanResources.Identity.AppUser", "Owner")
+                        .WithMany("Reports")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -340,6 +440,11 @@ namespace HumanResources.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("HumanResources.Identity.AppUser", b =>
+                {
+                    b.Navigation("Reports");
                 });
 
             modelBuilder.Entity("HumanResources.Models.Employee", b =>

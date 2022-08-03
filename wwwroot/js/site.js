@@ -4,7 +4,7 @@ $(function () {
     //MODAL POPUP BEGIN
     var placeHolderModal = $("#place-holder-modal");
 
-    $('button[data-toggle="ajax-modal"]').click(function (event) {
+    $(document).on("click", 'button[data-toggle="ajax-modal"]', function (event) {
         var url = $(this).data('url');
         var decodedUrl = decodeURIComponent(url);
         $.get(decodedUrl).done((data) => {
