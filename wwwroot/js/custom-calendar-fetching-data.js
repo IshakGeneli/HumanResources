@@ -1,4 +1,7 @@
-﻿$(function () {
+﻿$(async function () {
+
+    var employeeList = await getEmployeesWithPermits();
+    calendarConfig(new Date().getUTCMonth() + 1, new Date().getFullYear(), employeeList);
 
     $('#month-filter').on('change', function () {
 
@@ -15,7 +18,7 @@
             yearFilterValue = new Date().getFullYear();
         }
 
-        calendarConfig(monthFilterValue, yearFilterValue);
+        calendarConfig(monthFilterValue, yearFilterValue, employeeList);
     });
 
     $('#year-filter').on('change', function () {
@@ -33,10 +36,8 @@
             yearFilterValue = new Date().getFullYear();
         }
 
-        calendarConfig(monthFilterValue, yearFilterValue);
+        calendarConfig(monthFilterValue, yearFilterValue, employeeList);
     });
-
-    calendarConfig(new Date().getUTCMonth() + 1, new Date().getFullYear());
 
     async function getEmployeesWithPermits() {
 
@@ -55,7 +56,8 @@
         return Promise.resolve(employeeList);
     }
 
-    async function calendarConfig(month, year) {
+
+    async function calendarConfig(month, year, employeeList) {
 
         const LANGUAGE = "tr";
 
@@ -65,7 +67,6 @@
             { type: "primary", text: "İzinli", value: 0 }
         ]
 
-        var employeeList = await getEmployeesWithPermits();
 
         $.each(employeeList, (index, employee) => {
 
@@ -128,171 +129,32 @@
                 legends: legends
             });
 
-            $("body").on('click', `#calendar-header-${employee.Id} .calendar-header-left #calendar-previous-btn`, function () {
-                var calendarId = this.parentElement.parentElement.id.split("-")[2];
-                var calendar = document.getElementById("calendar-" + calendarId);
-                var currentMonth = calendar.dataset.dateMonth;
-                var currentYear = calendar.dataset.dateYear;
-                var previousMonth = getPreviousMonth(currentMonth, currentYear).month;
-                var previousYear = getPreviousMonth(currentMonth, currentYear).year;
-
-                monthlyExcusedPermitCount = getDateCountByMonth(excusedPermitDates, previousMonth);
-                monthlyUnexcusedPermitCount = getDateCountByMonth(unexcusedPermitDates, previousMonth);
-                monthlyOnLeavePermitCount = getDateCountByMonth(onLeavePermitDates, previousMonth);
-
-                legends[0].value = monthlyExcusedPermitCount;
-                legends[1].value = monthlyUnexcusedPermitCount;
-                legends[2].value = monthlyOnLeavePermitCount;
-
-                drawCalendar({
-                    calendarId: employee.Id,
-                    language: LANGUAGE,
-                    month: previousMonth,
-                    year: previousYear,
-                    data: permits,
-                    info: infoText,
-                    legends: legends
-                });
-            });
-
-            $("body").on('click', `#calendar-header-${employee.Id} .calendar-header-left #calendar-next-btn`, function () {
-                var calendarId = this.parentElement.parentElement.id.split("-")[2];
-                var calendar = document.getElementById("calendar-" + calendarId);
-                var currentMonth = calendar.dataset.dateMonth;
-                var currentYear = calendar.dataset.dateYear;
-                var nextMonth = getNextMonth(currentMonth, currentYear).month;
-                var nextYear = getNextMonth(currentMonth, currentYear).year;
-
-                monthlyExcusedPermitCount = getDateCountByMonth(excusedPermitDates, nextMonth);
-                monthlyUnexcusedPermitCount = getDateCountByMonth(unexcusedPermitDates, nextMonth);
-                monthlyOnLeavePermitCount = getDateCountByMonth(onLeavePermitDates, nextMonth);
-
-                legends[0].value = monthlyExcusedPermitCount;
-                legends[1].value = monthlyUnexcusedPermitCount;
-                legends[2].value = monthlyOnLeavePermitCount;
-
-                drawCalendar({
-                    calendarId: employee.Id,
-                    language: LANGUAGE,
-                    month: nextMonth,
-                    year: nextYear,
-                    data: permits,
-                    info: infoText,
-                    legends: legends
-                });
-            });
         });
     }
 
-    //function calendarConfig(month, year) {
+    $.each(employeeList, (index, employee) => {
+        $("body").on('click', `#calendar-header-${employee.Id} .calendar-header-left #calendar-previous-btn`, function () {
+            var calendarId = this.parentElement.parentElement.id.split("-")[2];
+            var calendar = document.getElementById("calendar-" + calendarId);
+            var currentMonth = calendar.dataset.dateMonth;
+            var currentYear = calendar.dataset.dateYear;
+            var previousMonth = getPreviousMonth(currentMonth, currentYear).month;
+            var previousYear = getPreviousMonth(currentMonth, currentYear).year;
 
-    //    const LEGENDS = [
-    //        { type: "warning", text: "Mazeretli", value: 0 },
-    //        { type: "danger", text: "Mazeretsiz", value: 0 },
-    //        { type: "primary", text: "İzinli", value: 0 }
-    //    ]
+            calendarConfig(previousMonth, previousYear, employeeList);
+        });
 
-    //    const LANGUAGE = "tr";
+        $("body").on('click', `#calendar-header-${employee.Id} .calendar-header-left #calendar-next-btn`, function () {
+            var calendarId = this.parentElement.parentElement.id.split("-")[2];
+            var calendar = document.getElementById("calendar-" + calendarId);
+            var currentMonth = calendar.dataset.dateMonth;
+            var currentYear = calendar.dataset.dateYear;
+            var nextMonth = getNextMonth(currentMonth, currentYear).month;
+            var nextYear = getNextMonth(currentMonth, currentYear).year;
 
-    //    $.ajax({
-    //        url: 'Permit/GetEmployeesWithPermits',
-    //        type: 'Get',
-    //        dataType: 'JSON',
-    //        success: function (employees) {
+            calendarConfig(nextMonth, nextYear, employeeList);
+        });
+    });
 
-    //            var jsonEmployees = jQuery.parseJSON(employees);
-
-    //            $.each(jsonEmployees,
-    //                (index, employee) => {
-
-    //                    var permits = [];
-    //                    var infoText = "";
-
-    //                    employee.Permits.forEach((permit) => {
-    //                        var dateList = getDatesBetweenTwoDates(permit.StartDate.slice(0, -9), permit.EndDate.slice(0, -9));
-
-    //                        var weekDays = getWeekDays(dateList);
-    //                        var status = "";
-    //                        var monthlyExcusedPermitCount = 0;
-    //                        var monthlyUnexcusedPermitCount = 0;
-    //                        var monthlyOnLeavePermitCount = 0;
-
-    //                        switch (permit.Type) { // see PermitType enum
-    //                            case 1:
-    //                                status = "warning"
-    //                                monthlyExcusedPermitCount = getDateCountByMonth(weekDays, month);
-    //                                break;
-    //                            case 2: // permit.Type = 2 (Enum = PermitType: Unexcused = 2) Mazeretsiz ise 2
-    //                                status = "danger";
-    //                                monthlyUnexcusedPermitCount = getDateCountByMonth(weekDays, month);
-    //                                break;
-    //                            case 3: // permit.Type = 3 (Enum = PermitType: OnLeave = 3) İzinli ise 3
-    //                                status = "primary";
-    //                                monthlyOnLeavePermitCount = getDateCountByMonth(weekDays, month);
-    //                                break;
-    //                            default:
-    //                        }
-
-    //                        for (var i = 0; i < weekDays.length; i++) {
-    //                            permits.push({ date: formatDate(weekDays[i]), status: status });
-    //                        }
-
-    //                        LEGENDS[0].value = monthlyExcusedPermitCount;
-    //                        LEGENDS[1].value = monthlyUnexcusedPermitCount;
-    //                        LEGENDS[2].value = monthlyOnLeavePermitCount;
-
-    //                        infoText = `Kalan izin sayısı: ${employee.RemainPermitCount}`
-
-    //                    });
-
-    //                    drawCalendar({
-    //                        calendarId: employee.Id,
-    //                        language: LANGUAGE,
-    //                        month: month,
-    //                        year: year,
-    //                        data: permits,
-    //                        info: infoText,
-    //                        legends: LEGENDS
-    //                    });
-
-    //                    $("body").on('click', `#calendar-header-${employee.Id} .calendar-header-left #calendar-previous-btn`, function () {
-    //                        var calendarId = this.parentElement.parentElement.id.split("-")[2];
-    //                        var calendar = document.getElementById("calendar-" + calendarId);
-    //                        var currentMonth = calendar.dataset.dateMonth;
-    //                        var currentYear = calendar.dataset.dateYear;
-    //                        var previousMonth = getPreviousMonth(currentMonth, currentYear).month;
-    //                        var previousYear = getPreviousMonth(currentMonth, currentYear).year;
-    //                        drawCalendar({
-    //                            calendarId: employee.Id,
-    //                            language: LANGUAGE,
-    //                            month: previousMonth,
-    //                            year: previousYear,
-    //                            data: permits,
-    //                            info: infoText,
-    //                            legends: LEGENDS
-    //                        });
-    //                    });
-
-    //                    $("body").on('click', `#calendar-header-${employee.Id} .calendar-header-left #calendar-next-btn`, function () {
-    //                        var calendarId = this.parentElement.parentElement.id.split("-")[2];
-    //                        var calendar = document.getElementById("calendar-" + calendarId);
-    //                        var currentMonth = calendar.dataset.dateMonth;
-    //                        var currentYear = calendar.dataset.dateYear;
-    //                        var nextMonth = getNextMonth(currentMonth, currentYear).month;
-    //                        var nextYear = getNextMonth(currentMonth, currentYear).year;
-    //                        drawCalendar({
-    //                            calendarId: employee.Id,
-    //                            language: LANGUAGE,
-    //                            month: nextMonth,
-    //                            year: nextYear,
-    //                            data: permits,
-    //                            info: infoText,
-    //                            legends: LEGENDS
-    //                        });
-    //                    });
-
-    //                });
-    //        }
-    //   });
-    //}
+    
 });
