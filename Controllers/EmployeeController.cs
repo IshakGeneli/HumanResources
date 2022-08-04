@@ -33,20 +33,7 @@ namespace HumanResources.Controllers
 
                 var hireYear = DateMethods.GetYearDifferenceFromToday(employee.HireDate);
 
-                var annualPermitCount = 0;
-
-                if (hireYear >= 1 && hireYear <= 5)
-                {
-                    annualPermitCount = 14;
-                }
-                else if (hireYear > 5 && hireYear < 15)
-                {
-                    annualPermitCount = 20;
-                }
-                else if (hireYear >= 15)
-                {
-                    annualPermitCount = 26;
-                }
+                var annualPermitCount = EmployeeMethods.AnnualPermitCountSetter(hireYear);
 
                 var employeeViewModel = new EmployeeViewModel()
                 {
@@ -96,10 +83,14 @@ namespace HumanResources.Controllers
 
                 employee.RemainPermitCount = remainPermitCount;
 
+                var formatFullName = $"{employee.FullName.ToLower().Replace(" ", "")}";
+                var formatDate = $"{ DateTime.Now.ToString().Substring(0, 10).Replace(".", "").Replace(" ", "")}";
+
                 var user = new AppUser
                 {
-                    UserName = employee.FullName.ToLower().Replace(" ", ""),
-                    Email = $"{employee.FullName.ToLower().Replace(" ", "")}@gmail.com"
+                    UserName = $"{formatFullName}_{formatDate}" +
+                               $"",
+                    Email = $"{formatFullName}@a.com"
                 };
                 await _userManager.CreateAsync(user, password: "123456");
 

@@ -27,9 +27,8 @@
 
     <link rel="stylesheet" href="~/lib/AdminLTE-3.2.0/plugins/summernote/summernote-bs4.min.css">
 
-    
-    <!-- Zabuto Calendar -->
-    @*<link rel="stylesheet" href="~/css/zabuto_calendar.min.css">*@
+    <link rel="stylesheet" href="~/css/site.css">
+
     @RenderSection("Styles", required:false)
 </head>
 <body class="hold-transition sidebar-mini layout-fixed dark-mode">
@@ -209,6 +208,9 @@
     <script src="~/lib/AdminLTE-3.2.0/dist/js/pages/dashboard.js"></script>
     <script src="~/lib/AdminLTE-3.2.0/plugins/fullcalendar/main.js"></script>
 
+    
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/js/date_methods.js"></script>
     <script src="~/js/site.js"></script>
 
     @RenderSection("Scripts", required:false)

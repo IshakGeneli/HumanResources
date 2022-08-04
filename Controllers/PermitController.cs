@@ -80,14 +80,14 @@ namespace HumanResources.Controllers
 
                 if (employee != null)
                 {
-                    if (permit.Type == PermitType.OnLeave)
-                    {
-                        employee.RemainPermitCount -= dayCount;
-                    }
-
                     _context.Employees.Update(employee);
                     _context.Permits.Add(permit);
                     _context.SaveChanges();
+
+                    if (permit.Type == PermitType.OnLeave)
+                    {
+                        PermitMethods.RemainPermitCountChecker(_context, permit);
+                    }
                 }
             }
             return PartialView("_CreatePermitModelPartial", permit);
@@ -109,78 +109,46 @@ namespace HumanResources.Controllers
             return PartialView("_DetailPermitModelPartial", findEmployee);
         }
 
-        //[HttpGet]
-        //public IActionResult Edit(int id)
-        //{
-        //    var permit = _context.Permits.Find(id);
-        //    return PartialView("_EditPermitModelPartial", permit);
-        //}
-
-        //[HttpPost]
-        //public IActionResult Edit(Permit permit)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Permits.Update(permit);
-        //        _context.SaveChanges();
-        //    }
-        //    return PartialView("_EditPermitModelPartial", permit);
-        //}
-
         [HttpGet]
-        public IActionResult EditPermit(int id)
+        public IActionResult Edit(int id)
         {
             var permit = _context.Permits.Find(id);
-            return View(permit);
+            return PartialView("_EditPermitModelPartial", permit);
         }
 
         [HttpPost]
-        public IActionResult EditPermit(Permit permit)
+        public IActionResult Edit(Permit permit)
         {
-            _context.Permits.Update(permit);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _context.Permits.Update(permit);
+                _context.SaveChanges();
+
+                PermitMethods.RemainPermitCountChecker(_context, permit);
+            }
+            return PartialView("_EditPermitModelPartial", permit);
         }
 
-        //[HttpGet]
-        //public IActionResult Delete(int id)
-        //{
-        //    var permit = _context.Permits.Find(id);
-        //    return PartialView("_DeletePermitModelPartial", permit);
-        //}
-
-        //[HttpPost]
-        //public IActionResult Delete(Permit permit)
-        //{
-        //    var deletePermit = _context.Permits.Find(permit.Id);
-        //    _context.Permits.Remove(deletePermit);
-        //    _context.SaveChanges();
-        //    return PartialView("_DeletePermitModelPartial", deletePermit);
-        //}
-
-        public IActionResult DeletePermit(int id)
+        [HttpGet]
+        public IActionResult Delete(int id)
         {
             var permit = _context.Permits.Find(id);
-
-            RemainPermitCountIncreaser(permit);
-
-            _context.Permits.Remove(permit);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
+            return PartialView("_DeletePermitModelPartial", permit);
         }
 
-        public void RemainPermitCountIncreaser(Permit permit)
+        [HttpPost]
+        public IActionResult Delete(Permit permit)
         {
-            if (permit.Type == PermitType.OnLeave)
+            var deletePermit = _context.Permits.Find(permit.Id);
+
+            _context.Permits.Remove(deletePermit);
+            _context.SaveChanges();
+
+            if (deletePermit.Type == PermitType.OnLeave)
             {
-                var dateList = DateMethods.GetDatesBetweenTwoDates(permit.StartDate, permit.EndDate);
-                var weekDays = DateMethods.GetWeekDays(dateList);
-
-                var employee = _context.Employees.Find(permit.EmployeeId);
-
-                employee.RemainPermitCount += weekDays.Count;
-                _context.Employees.Update(employee);
+                PermitMethods.RemainPermitCountChecker(_context, deletePermit);
             }
+            return PartialView("_DeletePermitModelPartial", deletePermit);
         }
     }
 }

@@ -13,80 +13,72 @@
                 </button>
             </div>
             <div class="modal-body">
-                @*<form action="@Url.Action("Edit")">*@
                 <div class="alert alert-info" role="alert">
                     <span class="text-bold">@Model.FullName</span> personelinin izinlerini düzenliyorsunuz.
                 </div>
-                <table class="table table-head-fixed text-nowrap">
-                    <thead>
-                    <tr>
-                        <th>
-                            Başlangıç
-                        </th>
-                        <th class="text-center">
-                            Bitiş
-                        </th>
-                        <th>
-                            Gün Sayısı
-                        </th>
-                        <th>
-                            Tip
-                        </th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
+                @if (Model.Permits == null)
+                {
+                    <span class="text-danger">Veri Yok</span>
+                }
+                else
+                {
+                    <table class="table table-head-fixed text-nowrap">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Başlangıç
+                                </th>
+                                <th class="text-center">
+                                    Bitiş
+                                </th>
+                                <th>
+                                    Gün Sayısı
+                                </th>
+                                <th>
+                                    Tip
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                    @foreach (var permit in Model.Permits)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => permit.StartDate)
-                            </td>
-                            <td class="text-center">
-                                @Html.DisplayFor(modelItem => permit.EndDate)
-                                    
-                            </td>
-                            <td class="text-center">
-                                @DateMethods.GetWeekDays(DateMethods.GetDatesBetweenTwoDates(permit.StartDate, permit.EndDate)).Count
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => permit.Type)
-                            </td>
-                                    
-                            <td class="text-right">
-                               @* <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#editPermit"
+                            @foreach (var permit in Model.Permits)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => permit.StartDate)
+                                    </td>
+                                    <td class="text-center">
+                                        @Html.DisplayFor(modelItem => permit.EndDate)
+
+                                    </td>
+                                    <td class="text-center">
+                                        @DateMethods.GetWeekDays(DateMethods.GetDatesBetweenTwoDates(permit.StartDate, permit.EndDate)).Count
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => permit.Type)
+                                    </td>
+
+                                    <td class="text-right">
+                                        <button type="button" class="btn btn-sm btn-primary" data-toggle="ajax-modal-inside" data-target="#editPermit"
                                         data-url="@Url.Action($"Edit/{permit.Id}")">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                                <button type="button" class="btn btn-danger" data-toggle="ajax-modal" data-target="#deletePermit"
-                                        data-url="@Url.Action($"Delete/{permit.Id}")">
-                                    <i class="bi bi-trash3"></i>
-                                </button>*@
-                                <a type="button" class="btn btn-sm btn-primary" asp-controller="Permit" asp-action="EditPermit" asp-route-id="@permit.Id">
                                             <i class="bi bi-pencil-square"></i>
-                                </a> |
-                                        
-                                <a type="button" class="btn btn-sm btn-danger" asp-controller="Permit" asp-action="DeletePermit" asp-route-id="@permit.Id">
+                                        </button>
+                                        |
+                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="ajax-modal-inside" data-target="#deletePermit"
+                                        data-url="@Url.Action($"Delete/{permit.Id}")">
                                             <i class="bi bi-trash3"></i>
-                                </a>
-                            </td>
-                        </tr>
-                                
-                    }
-                    </tbody>
-                </table>
-                @*</form>*@
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-                <button type="button" class="btn btn-primary" data-save="modal">Kaydet</button>
             </div>
         </div>
     </div>
 </div>
-
-@section Scripts
-{
-    <script src="~/js/site.js"></script>
-}

@@ -17,9 +17,10 @@
                 <form action="@Url.Action("Delete")">
                     <div class="form-group">
                         <input type="hidden" asp-for="Id" class="form-control">
-                        @*<label asp-for="Id"></label>*@
                     </div>
-                    <span class="text-bold text-warning">@Model.StartDate</span> - <span class="text-bold text-warning">@Model.EndDate</span>
+                    <span class="text-bold text-warning">@DateOnly.FromDateTime(Model.StartDate)</span>
+                    - 
+                    <span class="text-bold text-warning">@DateOnly.FromDateTime(Model.EndDate)</span>
                     aralıklı izni silmek istediğinize emin misiniz?
                 </form>
             </div>
