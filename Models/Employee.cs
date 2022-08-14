@@ -34,5 +34,7 @@ namespace HumanResources.Models
 
         public List<Permit>? Permits { get; set; }
 
+        public List<Task>? Tasks { get; set; }
+
     }
 }

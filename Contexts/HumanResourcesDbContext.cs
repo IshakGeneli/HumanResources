@@ -26,6 +26,9 @@ namespace HumanResources.Contexts
             builder.Entity<Report>().Property(p => p.EntryDate).HasColumnType("Date");
             builder.Entity<Report>().Property(p => p.ReportDate).HasColumnType("Date");
 
+            builder.Entity<Models.Task>().Property(p => p.CreatedDate).HasColumnType("Date");
+
+
             var user = new AppUser
             {
                 Id = "f73826e9-34c2-43cd-82aa-ec181350c358",
@@ -57,5 +60,7 @@ namespace HumanResources.Contexts
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Permit> Permits { get; set; }
         public DbSet<Report> Reports { get; set; }
+        public DbSet<Models.Task> Tasks { get; set; }
+
     }
 }

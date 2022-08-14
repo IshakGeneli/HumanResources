@@ -1,0 +1,72 @@
+﻿@using HumanResources.Enums
+@model IEnumerable<HumanResources.Models.Task>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<style>
+    .card{
+        box-sizing: border-box;
+    }
+    .card:hover{
+       box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
+    }
+</style>
+
+<div id="place-holder-modal"></div>
+<div id="place-holder-inside-modal"></div>
+
+<div class="mt-3">
+    <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-success" data-toggle="ajax-modal" data-target="#addTask" data-url="@Url.Action("Create")">
+            <i class="bi bi-plus-circle"></i> Görev Ekle
+        </button>
+    </div>
+</div>
+
+<div class="mt-2">
+    <div class="d-flex flex-wrap">
+            @foreach (var item in Model)
+            {
+                <div class="card m-1" style="width: 18rem;cursor: pointer;" data-toggle="ajax-modal" data-target="#detailTask" data-url="@Url.Action($"Detail/{item.Id}")">
+                    <div class="card-header">
+                        <h4 class="card-title">@item.Name</h4>
+                    </div>
+                    <div class="card-body">
+                        <small>@Html.DisplayNameFor(model => model.Description)</small>
+                        <p class="card-text">@item.Description</p>
+                        
+                    @switch (item.Label)
+                    {
+                        case TaskLabel.ToDo:
+                        <p class="card-text badge badge-warning">@Html.DisplayFor(modelItem => item.Label)</p>
+                        break;
+                        case TaskLabel.InProgress:
+                        <p class="card-text badge badge-primary">@Html.DisplayFor(modelItem => item.Label)</p>
+                        break;
+                        case TaskLabel.Done:
+                        <p class="card-text badge badge-success">@Html.DisplayFor(modelItem => item.Label)</p>
+                        break;
+                    }
+                        <ul>
+                            @if (item.Members != null)
+                            {
+                                foreach (var member in item.Members)
+                                {
+                                    <li>@member.FullName</li>
+                                }
+                            }
+                            else
+                            {
+                                <li>Üye yok</li>
+                            }
+                        </ul>
+                        <div class="d-flex justify-content-end align-items-center">
+                            <small>@Html.DisplayNameFor(model => model.CreatedDate)</small>
+                            <p class="card-text">@DateOnly.FromDateTime(item.CreatedDate)</p>
+                        </div>
+                    </div>
+                </div>
+            }
+    </div>
+</div>

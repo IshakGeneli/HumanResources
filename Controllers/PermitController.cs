@@ -76,8 +76,6 @@ namespace HumanResources.Controllers
             {
                 var employee = _context.Employees.Find(permit.EmployeeId);
 
-                var dayCount = DateMethods.GetDayCountTwoDates(permit.StartDate, permit.EndDate);
-
                 if (employee != null)
                 {
                     _context.Employees.Update(employee);

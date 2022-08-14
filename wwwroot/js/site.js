@@ -4,7 +4,7 @@ $(function () {
     var placeHolderModal = $("#place-holder-modal");
     var placeHolderInsideModal = $("#place-holder-inside-modal");
 
-    $(document).on("click", 'button[data-toggle="ajax-modal"]', function (event) {
+    $(document).on("click", '[data-toggle="ajax-modal"]', function (event) {
         var url = $(this).data('url');
         var decodedUrl = decodeURIComponent(url);
         $.get(decodedUrl).done((data) => {
@@ -301,6 +301,24 @@ $(function () {
             })
         }
         // End of Edit Report Form
+
+        // Create Task  Form
+        var createTaskForm = $("#create-task-form");
+        if (createTaskForm.length) {
+            createTaskForm.validate({
+                rules: {
+                    "Name": {
+                        required: true
+                    }
+                },
+                messages: {
+                    "Name": {
+                        required: REQUIRED_MESSAGE
+                    }
+                }
+            })
+        }
+        // End of Create Task Form
     }
 
     // CUSTOM VALIDATIONS
