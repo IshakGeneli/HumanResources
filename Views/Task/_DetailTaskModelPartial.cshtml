@@ -1,45 +1,74 @@
-﻿@using HumanResources.GlobalMethods
+﻿@using HumanResources.Enums
+@using HumanResources.GlobalMethods
 @model HumanResources.Models.Task
 @{
 }
 
-<div class="modal fade" id="editPermit" aria-labelledby="editPermitLabel">
+<style>
+    li.card-detail-member {
+        list-style: none;
+    }
+
+</style>
+
+<div class="modal fade" id="editTask" aria-labelledby="editTaskLabel">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
+                <h5 class="modal-title" id="addTaskLabel">@Model.Name</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><i class="bi bi-x-circle"></i></span>
                 </button>
             </div>
             <div class="modal-body">
-                <div class="alert alert-info" role="alert">
-                    <span class="text-bold badge badge-dark">@Model.Label</span> 
+
+                <div class="d-flex justify-content-between">
+                    @switch (Model.Label)
+                    {
+                        case TaskLabel.ToDo:
+                            <p class="card-text badge badge-warning">@Html.DisplayFor(modelItem => Model.Label)</p>
+                            break;
+                        case TaskLabel.InProgress:
+                            <p class="card-text badge badge-primary">@Html.DisplayFor(modelItem => Model.Label)</p>
+                            break;
+                        case TaskLabel.Done:
+                            <p class="card-text badge badge-success">@Html.DisplayFor(modelItem => Model.Label)</p>
+                            break;
+                    }
+                    <div class="d-flex">
+                        <button type="button" class="btn btn-sm btn-primary mr-1" data-toggle="ajax-modal-inside" data-target="#editTask"
+                                data-url="@Url.Action($"Edit/{Model.Id}")">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-danger" data-toggle="ajax-modal-inside" data-target="#deleteTask"
+                                data-url="@Url.Action($"Delete/{Model.Id}")">
+                            <i class="bi bi-trash3"></i>
+                        </button>
+                    </div>
                 </div>
+                <small class=text-secondary>@Html.DisplayNameFor(model => model.Description)</small>
+                <p class="card-text hidden-overflow-description">@Model.Description</p>
+
+
+                <small class=text-secondary>@Html.DisplayNameFor(model => model.Members)</small>
                 @if (Model.Members == null)
                 {
                     <span class="text-danger">Üye Yok</span>
-                    <button type="button" class="btn btn-sm btn-primary" data-toggle="ajax-modal-inside" data-target="#editPermit"
-                    data-url="@Url.Action($"Edit/{Model.Id}")">
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="ajax-modal-inside" data-target="#editTask"
+                        data-url="@Url.Action($"Edit/{Model.Id}")">
                         Ekle
                     </button>
                 }
                 else
                 {
-                     <ul>
-                         @foreach (var member in Model.Members)
-                         {
-                             <li>@member.FullName</li>
-                         }
-                     </ul>
+                    <ul>
+                        @foreach (var member in Model.Members)
+                        {
+                            <li class="card-detail-member">@member.FullName</li>
+                        }
+                    </ul>
                 }
-                <button type="button" class="btn btn-sm btn-primary" data-toggle="ajax-modal-inside" data-target="#editPermit"
-                data-url="@Url.Action($"Edit/{Model.Id}")">
-                    <i class="bi bi-pencil-square"></i>
-                </button>
-                <button type="button" class="btn btn-sm btn-danger" data-toggle="ajax-modal-inside" data-target="#deleteTask"
-                data-url="@Url.Action($"Delete/{Model.Id}")">
-                    <i class="bi bi-trash3"></i>
-                </button>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>

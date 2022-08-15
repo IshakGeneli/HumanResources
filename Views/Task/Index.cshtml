@@ -5,11 +5,34 @@
     ViewData["Title"] = "Index";
 }
 <style>
-    .card{
+    .card {
         box-sizing: border-box;
     }
-    .card:hover{
-       box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
+
+        .card:hover {
+            box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
+        }
+
+    .hidden-overflow-description {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        max-width: 30cr;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    li.card-member {
+        font-size: .8rem;
+        list-style: none;
+        display: inline-block;
+        margin: .2rem;
+        padding: 0 5px;
+        color: black;
+        background: #63b7f1;
+        border: 0.2rem solid #0064a9;
+        border-radius: 50px;
+
     }
 </style>
 
@@ -26,47 +49,51 @@
 
 <div class="mt-2">
     <div class="d-flex flex-wrap">
-            @foreach (var item in Model)
-            {
-                <div class="card m-1" style="width: 18rem;cursor: pointer;" data-toggle="ajax-modal" data-target="#detailTask" data-url="@Url.Action($"Detail/{item.Id}")">
-                    <div class="card-header">
-                        <h4 class="card-title">@item.Name</h4>
-                    </div>
-                    <div class="card-body">
-                        <small>@Html.DisplayNameFor(model => model.Description)</small>
-                        <p class="card-text">@item.Description</p>
-                        
+        @foreach (var item in Model)
+        {
+            <div class="card m-1" style="width: 18rem;cursor: pointer;" data-toggle="ajax-modal" data-target="#detailTask" data-url="@Url.Action($"Detail/{item.Id}")">
+                <div class="card-header">
+                    <h4 class="card-title">@item.Name</h4>
+                </div>
+                <div class="card-body">
+                    <small class=text-secondary>@Html.DisplayNameFor(model => model.Description)</small>
+                    <p class="card-text hidden-overflow-description">@item.Description</p>
                     @switch (item.Label)
                     {
                         case TaskLabel.ToDo:
-                        <p class="card-text badge badge-warning">@Html.DisplayFor(modelItem => item.Label)</p>
-                        break;
+                            <p class="card-text badge badge-warning">@Html.DisplayFor(modelItem => item.Label)</p>
+                            break;
                         case TaskLabel.InProgress:
-                        <p class="card-text badge badge-primary">@Html.DisplayFor(modelItem => item.Label)</p>
-                        break;
+                            <p class="card-text badge badge-primary">@Html.DisplayFor(modelItem => item.Label)</p>
+                            break;
                         case TaskLabel.Done:
-                        <p class="card-text badge badge-success">@Html.DisplayFor(modelItem => item.Label)</p>
-                        break;
+                            <p class="card-text badge badge-success">@Html.DisplayFor(modelItem => item.Label)</p>
+                            break;
                     }
-                        <ul>
-                            @if (item.Members != null)
+
+                </div>
+                <div class="card-footer">
+                    <small class="text-secondary">@Html.DisplayNameFor(model => model.Members)</small>
+
+                    <ul>
+                        @if (item.Members.Any())
+                        {
+                            foreach (var member in item.Members)
                             {
-                                foreach (var member in item.Members)
-                                {
-                                    <li>@member.FullName</li>
-                                }
+                                <li class="card-member">@member.FullName</li>
                             }
-                            else
-                            {
-                                <li>Üye yok</li>
-                            }
-                        </ul>
-                        <div class="d-flex justify-content-end align-items-center">
-                            <small>@Html.DisplayNameFor(model => model.CreatedDate)</small>
-                            <p class="card-text">@DateOnly.FromDateTime(item.CreatedDate)</p>
-                        </div>
+                        }
+                        else
+                        {
+                            <li>Üye yok</li>
+                        }
+                    </ul>
+                    <div class="d-flex justify-content-center align-items-end flex-column">
+                        <small class="text-secondary">@Html.DisplayNameFor(model => model.CreatedDate)</small>
+                        <p class="card-text">@DateOnly.FromDateTime(item.CreatedDate)</p>
                     </div>
                 </div>
-            }
+            </div>
+        }
     </div>
 </div>

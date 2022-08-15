@@ -309,12 +309,18 @@ $(function () {
                 rules: {
                     "Name": {
                         required: true
+                    },
+                    "Description": {
+                        required: true
                     }
                 },
                 messages: {
                     "Name": {
                         required: REQUIRED_MESSAGE
-                    }
+                    },
+                    "Description": {
+                        required: REQUIRED_MESSAGE
+                    },
                 }
             })
         }

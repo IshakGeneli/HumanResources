@@ -1,0 +1,45 @@
+﻿@using HumanResources.Enums
+@using HumanResources.ViewModels
+@model EditTaskViewModel
+@{
+
+}
+
+<div class="modal fade" id="editTask" aria-labelledby="editTaskLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editTaskLabel">Görev Güncelle</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="bi bi-x-circle"></i></span>
+                </button>
+            </div>
+            <form id="edit-task-form" action="@Url.Action("Edit")">
+                <div class="modal-body">
+                    <input asp-for="Id" hidden />
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" class="form-control" >
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description"></label>
+                        <textarea asp-for="Description" class="form-control" value=""></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Label"></label>
+                        <select asp-for="Label" asp-items="Html.GetEnumSelectList<TaskLabel>()" class="form-control" value=""></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Üye Seçiniz</label>
+                        <select asp-for="MemberIds" asp-items="@ViewBag.Members" class="form-control" multiple>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                    <button type="button" class="btn btn-primary" data-save="modal">Kaydet</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

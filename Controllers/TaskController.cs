@@ -45,24 +45,27 @@ namespace HumanResources.Controllers
         [HttpPost]
         public IActionResult Create(CreateTaskViewModel createTask)
         {
-            List<Employee> members = new();
-            if (createTask.MemberIds != null)
+            if (ModelState.IsValid)
             {
-                members = _context.Employees.Where(x => createTask.MemberIds.Contains(x.Id)).ToList();
+                List<Employee> members = new();
+                if (createTask.MemberIds != null)
+                {
+                    members = _context.Employees.Where(x => createTask.MemberIds.Contains(x.Id)).ToList();
+                }
+
+                Models.Task task = new()
+                {
+                    CreatedDate = DateTime.Now,
+                    Name = createTask.Name,
+                    Description = createTask.Description,
+                    Label = TaskLabel.ToDo
+                };
+                task.Members = members;
+
+                _context.Tasks.Add(task);
+                _context.SaveChanges();
             }
-
-            Models.Task task = new()
-            {
-                CreatedDate = DateTime.Now,
-                Name = createTask.Name ?? "-",
-                Description = createTask.Description,
-                Label = TaskLabel.ToDo
-            };
-            task.Members = members;
-
-            _context.Tasks.Add(task);
-            _context.SaveChanges();
-            return PartialView("_CreateTaskModelPartial", task);
+            return PartialView("_CreateTaskModelPartial", createTask);
         }
 
         [HttpGet]
@@ -73,18 +76,57 @@ namespace HumanResources.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit()
+        public IActionResult Edit(int id)
         {
-            Models.Task task = new();
-            return PartialView("_EditTaskModelPartial", task);
+            Models.Task task = _context.Tasks.Include(x => x.Members).FirstOrDefault(x => x.Id == id);
+            EditTaskViewModel editTask = new();
+            if (task != null)
+            {
+                editTask = new()
+                {
+                    Description = task.Description,
+                    Name = task.Name,
+                    Label = task.Label,
+                    MemberIds = task.Members.Select(x => x.Id).ToList(),
+                };
+                var selectListItems = new List<SelectListItem>();
+                var employeeList = _context.Employees.ToList();
+                foreach (var employee in employeeList)
+                {
+                    selectListItems.Add(new SelectListItem
+                    {
+                        Text = employee.FullName,
+                        Value = employee.Id.ToString(),
+                    });
+                }
+                ViewBag.Members = selectListItems;
+            }
+            return PartialView("_EditTaskModelPartial", editTask);
         }
 
         [HttpPost]
-        public IActionResult Edit(Models.Task task)
+        public IActionResult Edit(EditTaskViewModel editTask)
         {
-            _context.Add(task);
-            _context.SaveChanges();
-            return PartialView("_EditTaskModelPartial", task);
+            if (ModelState.IsValid)
+            {
+                var currentTask = _context.Tasks.Include(x => x.Members).FirstOrDefault(x => x.Id == editTask.Id);
+                currentTask.Name = editTask.Name;
+                currentTask.Description = editTask.Description;
+                currentTask.Label = editTask.Label;
+
+                List<Employee> members = new();
+                if (editTask.MemberIds != null)
+                {
+                    members = _context.Employees.Where(x => editTask.MemberIds.Contains(x.Id)).ToList();
+                }
+
+                currentTask.Members.Clear();
+                currentTask.Members.AddRange(members);
+
+                _context.Tasks.Update(currentTask);
+                _context.SaveChanges();
+            }
+            return PartialView("_EditTaskModelPartial", editTask);
         }
 
         [HttpGet]
