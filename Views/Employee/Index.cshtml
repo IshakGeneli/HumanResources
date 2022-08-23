@@ -12,7 +12,11 @@
         <div class="card-header">
             <h3 class="card-title">Personel Listesi</h3>
 
-            <div class="card-tools">
+            <div class="card-tools d-flex">
+                <button type="button" class="btn btn-primary mr-1" data-toggle="ajax-modal" data-target="#employeeExcel" data-url="@Url.Action("UploadDownloadExcelModal")">
+                    <i class="bi bi-plus-circle"></i> Toplu Personel Ekle
+                </button>
+                
                 <button type="button" class="btn btn-success" data-toggle="ajax-modal" data-target="#addEmployee" data-url="@Url.Action("Create")">
                     <i class="bi bi-plus-circle"></i> Personel Ekle
                 </button>
